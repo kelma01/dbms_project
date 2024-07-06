@@ -61,7 +61,7 @@
                     <mxGeometry x="-198.5" y="-127.13000000000001" width="60" height="19.25" as="geometry"/>
                 </mxCell>
                 <mxCell id="D5yejVB-vVZnaP33-RKD-21" value="balance" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="-70.5" y="325" width="50" height="20" as="geometry"/>
+                    <mxGeometry x="-90" y="325" width="50" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="D5yejVB-vVZnaP33-RKD-26" value="r_star" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
                     <mxGeometry x="140" y="175" width="60" height="20" as="geometry"/>
@@ -793,6 +793,15 @@
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="-520" y="100" as="sourcePoint"/>
                         <mxPoint x="-470" y="50" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="waller_id" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-20.5" y="320" width="60.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="D5yejVB-vVZnaP33-RKD-13" target="40">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-10" y="270" as="sourcePoint"/>
+                        <mxPoint x="40" y="220" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>
