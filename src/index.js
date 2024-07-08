@@ -1,17 +1,36 @@
 const express = require('express');
- 
+const mysql = require('mysql');
 const app = express();
 const PORT = 3001;
 
-//post requ için kullanılan bir middleware, parse ediyor postlayabilmesi icin, aynı zamanda loglamaya da yardımcı?
+//post req için kullanılan bir middleware
 app.use(express.json());
+
 app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
 });
 
+//localhost initialization
 app.listen(PORT, () => console.log(`Running Server on Port ${PORT}`));
 
+//db initialization
+const connection = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: 'kerem',
+        database: 'dbms_project',
+        authPlugins: {
+            mysql_native_password: mysql.authPlugins.mysql_native_password
+        }
+    }
+);
+
+connection.connect();
+
+
+//GET ve POST request ornekleri
 const groceryList = [
     {
         item: 'water',
@@ -22,8 +41,6 @@ const groceryList = [
         quantity: 5
     }
 ]
-
-
 //GET req
 app.get('/groceries', 
         (req, res, next) => {   //buradaki next olayı yollanılan get req'in bekletilmesini sağlar. karşılığında bir aksiyon bekler
@@ -36,7 +53,6 @@ app.get('/groceries',
         }
         )
 
-
 //buradaki request postman'dan gelen post request body'sidir.
 app.post('/groceries', (request, response) => {
     console.log(request.body);
@@ -44,4 +60,3 @@ app.post('/groceries', (request, response) => {
     response.send(201); //http status
     //postman ile POST requestler yapılabilr test edilebilir.
 });
-
