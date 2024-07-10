@@ -21,7 +21,7 @@ const movieList = [
     }
 ]
 
-//query parameter kullanımına örnektir.
+//query parameter kullanımına örnektir. sadece id icin calisan bir ornek!!!!!!!!!!!!!
 router.get('/', (req, res) => {
     if (Object.keys(req.query).length === 0) {
         console.log(req.query);
