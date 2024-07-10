@@ -16,7 +16,7 @@ const movieList = [
     },
     {
         moviename: 'testmovie',
-        rate: 0,
+        rate: 1,
         id: 3
     }
 ]
@@ -48,5 +48,6 @@ router.post('/', (request, response) => {
     response.send(201); //http status
     //postman ile POST requestler yapılabilr test edilebilir.
 });
+
 
 module.exports = router;
