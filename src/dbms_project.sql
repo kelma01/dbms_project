@@ -312,7 +312,7 @@ CREATE TABLE `user` (
   `wallet_id` int NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `wallet_id_UNIQUE` (`wallet_id`),
-  CONSTRAINT `user_wallet_id` FOREIGN KEY (`user_id`) REFERENCES `wallet` (`wallet_id`)
+  CONSTRAINT `user_wallet_id` FOREIGN KEY (`wallet_id`) REFERENCES `wallet` (`wallet_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -322,7 +322,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'neva','varol','734','1','2024-04-20','1',1),(2,'kerem','elma','823','1',NULL,'0',2),(3,'halil melih','akca','325','1',NULL,'0',3),(4,'mehmet','eski','466','1',NULL,'0',4);
+INSERT INTO `user` VALUES (1,'neva','varol','734','1','2024-04-20','1',0),(2,'kerem','elma','823','1',NULL,'0',2),(3,'halil melih','akca','325','1',NULL,'0',3),(4,'mehmet','eski','466','1',NULL,'0',4);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
