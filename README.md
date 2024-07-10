@@ -6,3 +6,4 @@ Projenin çalıştırılması için gerekli kütüphaneler package.json içinde 
 2. Repo'yu klonladığınız path'te `npm run start:dev` ile de localhost'ta sunucu çalıştırılabilir. localhost:3001 'de çalışmaktadır. Her yapılan değişiklikten sonra dosyalar kaydedilip terminale 'rs' yazılmalı, değişiklik sonrası server'in tekrardan çalışması için.
 
 test
+22
