@@ -310,6 +310,7 @@ CREATE TABLE `user` (
   `birth_date` date DEFAULT NULL,
   `tickets` varchar(45) DEFAULT NULL,
   `wallet_id` int NOT NULL,
+  `email` varchar(100) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `user_wallet_id` (`wallet_id`),
   CONSTRAINT `user_wallet_id` FOREIGN KEY (`wallet_id`) REFERENCES `wallet` (`wallet_id`)
