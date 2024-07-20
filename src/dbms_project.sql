@@ -305,7 +305,7 @@ CREATE TABLE `user` (
   `user_id` int NOT NULL,
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
-  `pw_hash` varchar(45) NOT NULL,
+  `password` varchar(225) NOT NULL,
   `movies_watched` varchar(45) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `tickets` varchar(45) DEFAULT NULL,
