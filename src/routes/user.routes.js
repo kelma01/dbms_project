@@ -3,4 +3,7 @@ module.exports = app => {
 
     app.post('/users', users.create);
     app.get("/users", users.findAll);
+    app.post("/register", users.register);
+    app.post("/login", users.login);
+
 }

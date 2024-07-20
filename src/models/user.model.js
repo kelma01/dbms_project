@@ -1,14 +1,14 @@
 const sql = require('../config/db_config');
+const crypto = require('crypto');
 
 const User = function(user) {
-  this.user_id = user.user_id;
+  this.email = user.email;
   this.name = user.name;
   this.surname = user.surname;
-  this.pw_hash = user.pw_hash;
+  this.password = user.password;
   this.movies_watched = user.movies_watched,
   this.birth_date = user.birth_date,
   this.tickets = user.tickets;
-  this.wallet_id = user.wallet_id;
 };
 
 User.create = (newUser, result) => {
@@ -21,6 +21,21 @@ User.create = (newUser, result) => {
     result(null, { id: res.insertId, ...newUser });
   });
 };
+
+User.findByEmail = (email, result) => {
+  sql.query(`SELECT * FROM user WHERE email = '${email}'`, (err ,res) => {
+    if(err){
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    if(res.length){
+      result(null, res[0]);
+      return;
+    }
+    result({ kind: "not_found" }, null);
+  })
+}
 
 User.getAll = (result) => {
   sql.query("SELECT * FROM user", (err, res) => {
