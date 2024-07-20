@@ -81,8 +81,8 @@ DROP TABLE IF EXISTS `credit card`;
 CREATE TABLE `credit card` (
   `card_number` bigint NOT NULL,
   `ccv` int NOT NULL,
-  `expiration_year` varchar(45) DEFAULT NULL,
-  `expiration_month` varchar(45) DEFAULT NULL,
+  `expiration_year` varchar(45) NOT NULL,
+  `expiration_month` varchar(45) NOT NULL,
   `wallet_id` int NOT NULL,
   PRIMARY KEY (`wallet_id`),
   CONSTRAINT `wallet_id` FOREIGN KEY (`wallet_id`) REFERENCES `wallet` (`wallet_id`)
