@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const User = require('../models/user.model');
-const Wallet = require('../models/wallet.model')
+const Wallet = require('../models/wallet.model');
+const CreditCard = require('../models/credit_card.model');
 
 function hashPassword(password){
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -122,5 +123,25 @@ exports.login = (req, res) => {
         message: "Invalid email or password"
       });
     }
+  });
+
+  Wallet.findByUserId(user.id, (err, wallet) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving the Wallet."
+      });
+      return;
+    }
+
+    CreditCard.findByWalletId(wallet.wallet_id, (err, creditCards) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message || "Some error occurred while retrieving the Credit Cards."
+        });
+        return;
+      }
+
+      res.send({ user, wallet, creditCards });
+    });
   });
 };

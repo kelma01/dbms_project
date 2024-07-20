@@ -17,6 +17,7 @@ app.use((req, res, next) => {
 //routers
 require('./routes/user.routes')(app);
 require('./routes/wallet.routes')(app);
+require('./routes/credit_card.routes')(app);
 
 
 //localhost initialization
