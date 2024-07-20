@@ -1,7 +1,7 @@
 const sql = require('../config/db_config');
 const crypto = require('crypto');
 
-const User = function(user) {
+const User = function(user) { 
   this.email = user.email;
   this.name = user.name;
   this.surname = user.surname;

@@ -2,7 +2,7 @@ const Wallet = require('../models/wallet.model');
 
 exports.create = (req, res) => {
   const newWallet = new Wallet({
-    wallet_id: req.body.wallet_id, //user_id ile aynı
+    wallet_id: req.body.wallet_id, //user_id ile aynı 
     balance: req.body.balance || 0.00,
     tickets: req.body.tickets || "",
     credit_cards: req.body.credit_cards || "",

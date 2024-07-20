@@ -2,7 +2,7 @@ const sql = require('../config/db_config');
 
 const Wallet = function(wallet) {
     this.wallet_id = wallet.wallet_id; //user_id ile aynı
-    this.balance = wallet.balance;
+    this.balance = wallet.balance;  
     this.tickets = wallet.tickets;
     this.credit_cards = wallet.credit_cards;
     this.coupons = wallet.coupons;

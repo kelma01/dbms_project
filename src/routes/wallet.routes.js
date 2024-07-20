@@ -3,4 +3,4 @@ module.exports = app => {
   
     app.post('/wallets', wallets.create);
     app.get('/wallets', wallets.findAll);
-  };
+  }; 
