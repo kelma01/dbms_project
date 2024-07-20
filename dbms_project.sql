@@ -109,7 +109,7 @@ CREATE TABLE `filter` (
   `f_is_released` tinyint DEFAULT NULL,
   `f_genre` varchar(45) DEFAULT NULL,
   `cinema_id` int NOT NULL,
-  `user_id` varchar(36) NOT NULL,
+  `user_id` int NOT NULL,
   KEY `filter_cinema_id` (`cinema_id`),
   KEY `filter_user_id` (`user_id`),
   CONSTRAINT `filter_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
@@ -169,7 +169,7 @@ CREATE TABLE `rates` (
   `r_star` int DEFAULT NULL,
   `r_date` date DEFAULT NULL,
   `movie_id` int NOT NULL,
-  `user_id` varchar(36) NOT NULL,
+  `user_id` int NOT NULL,
   KEY `rates_movie_id` (`movie_id`),
   KEY `rates_user_id` (`user_id`),
   CONSTRAINT `rates_movie_id` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
@@ -259,7 +259,7 @@ CREATE TABLE `ticket` (
   `theater_id` int NOT NULL,
   `seat_id` int NOT NULL,
   `movie_id` int NOT NULL,
-  `user_id` varchar(36) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`ticket_id`),
   UNIQUE KEY `theater_id_UNIQUE` (`theater_id`),
   UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
@@ -291,7 +291,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `user_id` varchar(36) NOT NULL,
+  `user_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
@@ -317,7 +317,7 @@ CREATE TABLE `wallet` (
   `coupons` varchar(45) DEFAULT NULL,
   `wallet_id` varchar(36) NOT NULL,
   `credit_cards` varchar(45) DEFAULT NULL,
-  `user_id` varchar(36) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`wallet_id`),
   KEY `wallet_user_id` (`user_id`),
   CONSTRAINT `wallet_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
@@ -342,4 +342,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-20 23:04:52
+-- Dump completed on 2024-07-20 23:30:59
