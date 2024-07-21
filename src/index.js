@@ -18,7 +18,11 @@ app.use((req, res, next) => {
 require('./routes/user.routes')(app);
 require('./routes/wallet.routes')(app);
 require('./routes/credit_card.routes')(app);
+require('./routes/cinema.routes')(app);
+require('./routes/theater.routes')(app);
+require('./routes/seat.routes')(app);
 
 
 //localhost initialization
 app.listen(PORT, () => console.log(`Running Server on Port ${PORT}`));
+

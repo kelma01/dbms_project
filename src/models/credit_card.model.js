@@ -43,4 +43,21 @@ CreditCard.findByWalletId = (walletId, result) => {
     });
   };
   
+CreditCard.getByUserId = (userId, result) => {
+  sql.query(
+      `SELECT cc.* FROM credit_card cc
+        JOIN wallet w ON cc.wallet_id = w.wallet_id
+        WHERE w.user_id = ?`,
+      [userId],
+      (err, res) => {
+          if (err) {
+              console.log("error: ", err);
+              result(err, null);
+              return;
+          }
+          result(null, res);
+      }
+  );
+};
+
 module.exports = CreditCard;

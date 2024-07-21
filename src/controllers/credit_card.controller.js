@@ -27,3 +27,13 @@ exports.findByWalletId = (req, res) => {
     else res.send(data);
   });
 };
+
+exports.findByUserId = (req, res) => {
+  CreditCard.getByUserId(req.params.userId, (err, data) => {
+      if (err) {
+          res.status(500).send({
+              message: err.message || "Some error occurred while retrieving credit cards."
+          });
+      } else res.send(data);
+  });
+};
