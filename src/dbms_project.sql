@@ -356,3 +356,48 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-07-21  1:52:49
+INSERT INTO movie (movie_id, rate, duration, genre, name, imdb_rate, description, show_times, days, is_released) VALUES 
+(1, 8.5, '2h 30m', 'Drama', 'Titanic', 8.7, 'A love story on the ill-fated Titanic', '7:00 PM', 'Friday', 1),
+(2, 7.8, '2h 10m', 'Action', 'Mr. & Mrs. Smith', 7.5, 'A married couple discovers they are both assassins', '8:00 PM', 'Saturday', 1);
+INSERT INTO actor_actress (name, surname, movie_id) VALUES 
+('Leonardo', 'DiCaprio', 1),
+('Kate', 'Winslet', 1),
+('Brad', 'Pitt', 2),
+('Angelina', 'Jolie', 2);
+INSERT INTO cinema (cinema_id, name, location, city, address, theaters) VALUES 
+(1, 'Cinema 1', 'Downtown', 'City A', '123 Main St', 'Theater 1, Theater 2'),
+(2, 'Cinema 2', 'Uptown', 'City B', '456 Elm St', 'Theater 3, Theater 4');
+INSERT INTO user (user_id, name, surname, password, movies_watched, birth_date, tickets, email) VALUES 
+(1, 'John', 'Doe', 'password_hash_1', 'Titanic', '1990-01-01', '1', 'john.doe@example.com'),
+(2, 'Jane', 'Smith', 'password_hash_2', 'Mr. & Mrs. Smith', '1985-05-15', '2', 'jane.smith@example.com');
+
+INSERT INTO wallet (wallet_id, tickets, balance, coupons, credit_cards, user_id) VALUES 
+('1', '1', '100', 'Coupon 1', '', 1),
+('2', '2', '200', 'Coupon 2', '', 2);
+
+INSERT INTO credit_card (card_number, cvv, expiration_year, expiration_month, wallet_id) VALUES 
+('1111222233334444', 123, 2025, 'Jan', '1'),
+('5555666677778888', 456, 2026, 'Feb', '2');
+INSERT INTO filter (f_city, f_cinema, f_day, f_rating, f_is_released, f_genre, cinema_id, user_id) VALUES 
+('City A', 'Cinema 1', 'Friday', 'PG-13', 1, 'Drama', 1, 1),
+('City B', 'Cinema 2', 'Saturday', 'R', 1, 'Action', 2, 2);
+INSERT INTO rates (r_comment, r_star, r_date, movie_id, user_id) VALUES 
+('Great movie!', 5, '2023-07-01', 1, 1),
+('Not bad', 3, '2023-07-02', 2, 2);
+INSERT INTO theatre (theatre_id, num_of_seats, seats, cinema_id) VALUES 
+(1, 100, 'A1-A100', 1),
+(2, 150, 'B1-B150', 2);
+
+INSERT INTO seat (seat_id, is_empty, theater_id, cinema_id) VALUES 
+(1, 1, 1, 1),
+(2, 0, 1, 1),
+(3, 1, 2, 2),
+(4, 0, 2, 2);
+INSERT INTO ticket (ticket_id, day, showtime, cinema_id, theater_id, seat_id, movie_id, user_id) VALUES 
+(1, 'Friday', '7:00 PM', 1, 1, 1, 1, 1),
+(2, 'Saturday', '8:00 PM', 2, 2, 3, 2, 2);
+
+
+
+
+
