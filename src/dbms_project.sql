@@ -48,14 +48,14 @@ DROP TABLE IF EXISTS `cinema`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cinema` (
-  `cinema_id` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `location` varchar(45) NOT NULL,
+  `cinema_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
   `city` varchar(45) NOT NULL,
   `address` varchar(405) NOT NULL,
-  `theaters` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`cinema_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`cinema_id`),
+  UNIQUE KEY `city_UNIQUE` (`city`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +64,7 @@ CREATE TABLE `cinema` (
 
 LOCK TABLES `cinema` WRITE;
 /*!40000 ALTER TABLE `cinema` DISABLE KEYS */;
+INSERT INTO `cinema` VALUES (99,'Optimum Avşarlar','Adana','Optimum AVM');
 /*!40000 ALTER TABLE `cinema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,8 +82,7 @@ CREATE TABLE `credit_card` (
   `expiration_month` char(3) NOT NULL,
   `wallet_id` varchar(36) NOT NULL,
   KEY `credit_cards_wallet_id` (`wallet_id`),
-  CONSTRAINT `credit_cards_wallet_id` FOREIGN KEY (`wallet_id`) REFERENCES `wallet` (`wallet_id`)
-  ON DELETE CASCADE
+  CONSTRAINT `credit_cards_wallet_id` FOREIGN KEY (`wallet_id`) REFERENCES `wallet` (`wallet_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -110,10 +110,10 @@ CREATE TABLE `filter` (
   `f_rating` varchar(45) DEFAULT NULL,
   `f_is_released` tinyint DEFAULT NULL,
   `f_genre` varchar(45) DEFAULT NULL,
-  `cinema_id` int NOT NULL,
   `user_id` int NOT NULL,
-  KEY `filter_cinema_id` (`cinema_id`),
+  `cinema_id` int NOT NULL,
   KEY `filter_user_id` (`user_id`),
+  KEY `filter_cinema_id` (`cinema_id`),
   CONSTRAINT `filter_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
   CONSTRAINT `filter_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -196,17 +196,22 @@ DROP TABLE IF EXISTS `seat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seat` (
-  `seat_id` int NOT NULL,
+  `seat_id` int NOT NULL AUTO_INCREMENT,
   `is_empty` tinyint NOT NULL,
-  `theater_id` int NOT NULL,
   `cinema_id` int NOT NULL,
-  PRIMARY KEY (`theater_id`,`cinema_id`,`seat_id`),
+  `seat_row` char(1) NOT NULL,
+  `seat_col` int NOT NULL,
+  `theater_id` int NOT NULL,
+  `ticket_id` int DEFAULT NULL,
+  PRIMARY KEY (`seat_id`,`cinema_id`,`theater_id`),
   UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
-  KEY `cinema_id_idx` (`cinema_id`),
-  KEY `seat_cinema_id_idx` (`cinema_id`),
+  KEY `seat_cinema_id` (`cinema_id`),
+  KEY `seat_theater_id` (`theater_id`),
+  KEY `seat_ticket_id` (`ticket_id`),
   CONSTRAINT `seat_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
-  CONSTRAINT `seat_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theatre` (`theatre_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `seat_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
+  CONSTRAINT `seat_ticket_id` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticket_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,35 +220,36 @@ CREATE TABLE `seat` (
 
 LOCK TABLES `seat` WRITE;
 /*!40000 ALTER TABLE `seat` DISABLE KEYS */;
+INSERT INTO `seat` VALUES (1,0,99,'A',2,1,NULL);
 /*!40000 ALTER TABLE `seat` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `theatre`
+-- Table structure for table `theater`
 --
 
-DROP TABLE IF EXISTS `theatre`;
+DROP TABLE IF EXISTS `theater`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `theatre` (
-  `theatre_id` int NOT NULL,
+CREATE TABLE `theater` (
+  `theater_id` int NOT NULL AUTO_INCREMENT,
   `num_of_seats` int NOT NULL,
-  `seats` varchar(45) DEFAULT NULL,
   `cinema_id` int NOT NULL,
-  PRIMARY KEY (`theatre_id`,`cinema_id`),
-  UNIQUE KEY `cinema_id_UNIQUE` (`cinema_id`),
-  UNIQUE KEY `theatre_id_UNIQUE` (`theatre_id`),
-  CONSTRAINT `theatre_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`theater_id`,`cinema_id`),
+  UNIQUE KEY `theater_id_UNIQUE` (`theater_id`),
+  KEY `theater_cinema_id` (`cinema_id`),
+  CONSTRAINT `theater_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `theatre`
+-- Dumping data for table `theater`
 --
 
-LOCK TABLES `theatre` WRITE;
-/*!40000 ALTER TABLE `theatre` DISABLE KEYS */;
-/*!40000 ALTER TABLE `theatre` ENABLE KEYS */;
+LOCK TABLES `theater` WRITE;
+/*!40000 ALTER TABLE `theater` DISABLE KEYS */;
+INSERT INTO `theater` VALUES (1,32,99),(2,64,99);
+/*!40000 ALTER TABLE `theater` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -257,21 +263,21 @@ CREATE TABLE `ticket` (
   `ticket_id` int NOT NULL,
   `day` varchar(45) NOT NULL,
   `showtime` varchar(45) NOT NULL,
-  `cinema_id` int NOT NULL,
-  `theater_id` int NOT NULL,
-  `seat_id` int NOT NULL,
   `movie_id` int NOT NULL,
   `user_id` int NOT NULL,
+  `cinema_id` int NOT NULL,
+  `seat_id` int NOT NULL,
+  `theater_id` int NOT NULL,
   PRIMARY KEY (`ticket_id`),
-  UNIQUE KEY `theater_id_UNIQUE` (`theater_id`),
-  UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
   UNIQUE KEY `movie_id_UNIQUE` (`movie_id`),
-  KEY `ticket_cinema_id_idx` (`cinema_id`),
   KEY `ticket_user_id` (`user_id`),
+  KEY `ticket_cinema_id` (`cinema_id`),
+  KEY `ticket_seat_id` (`seat_id`),
+  KEY `ticket_theater_id` (`theater_id`),
   CONSTRAINT `ticket_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
   CONSTRAINT `ticket_movie_id` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
   CONSTRAINT `ticket_seat_id` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
-  CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theatre` (`theatre_id`),
+  CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
   CONSTRAINT `ticket_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -302,7 +308,7 @@ CREATE TABLE `user` (
   `tickets` varchar(45) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -311,7 +317,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (5,'melih','akça','14rwedsfzdfgew5y4wresgfwrge',NULL,NULL,NULL,'hakca@etu.edu.tr'),(8,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,NULL,NULL,'kelma@etu.edu.tr'),(17,'mehmet','eski','cdba7b5cda81b8a2b6d15265d75d5c4a424ea805dc85590b4f980f8826109b2c',NULL,NULL,NULL,'meski@etu.edu.tr'),(19,'neva','varol','81a8a7e6d87956b746a74a7e98795a2549d8d2d82a62a0cf31e914eddab6a591',NULL,NULL,NULL,'nevavarol@etu.edu.tr');
+INSERT INTO `user` VALUES (8,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,NULL,NULL,'kelma@etu.edu.tr'),(17,'mehmet','eski','cdba7b5cda81b8a2b6d15265d75d5c4a424ea805dc85590b4f980f8826109b2c',NULL,NULL,NULL,'meski@etu.edu.tr'),(19,'neva','varol','81a8a7e6d87956b746a74a7e98795a2549d8d2d82a62a0cf31e914eddab6a591',NULL,NULL,NULL,'nevavarol@etu.edu.tr'),(21,'name','surname','821fa13813f5d51675295a86867110c493f1f4a4e0ff77364d0cc59c729632c8',NULL,NULL,NULL,'balanceuser@etu.edu.tr');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,16 +329,15 @@ DROP TABLE IF EXISTS `wallet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wallet` (
-  `tickets` varchar(45) DEFAULT NULL,
+  `ticket` varchar(45) DEFAULT NULL,
   `balance` varchar(45) NOT NULL,
-  `coupons` varchar(45) DEFAULT NULL,
+  `coupon` varchar(45) DEFAULT NULL,
   `wallet_id` varchar(36) NOT NULL,
   `credit_cards` varchar(45) DEFAULT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`wallet_id`),
   KEY `wallet_user_id` (`user_id`),
-  CONSTRAINT `wallet_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-  ON DELETE CASCADE
+  CONSTRAINT `wallet_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -342,7 +347,7 @@ CREATE TABLE `wallet` (
 
 LOCK TABLES `wallet` WRITE;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
-INSERT INTO `wallet` VALUES ('','0','','17','',17),('','0','','18','',18),('','0','','19','',19),('','0','','20','',20);
+INSERT INTO `wallet` VALUES ('','0','','17','',17),('','0','','18','',18),('','0','','19','',19),('','0','','20','',20),(NULL,'0',NULL,'21','',21);
 /*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -355,49 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-21  1:52:49
-INSERT INTO movie (movie_id, rate, duration, genre, name, imdb_rate, description, show_times, days, is_released) VALUES 
-(1, 8.5, '2h 30m', 'Drama', 'Titanic', 8.7, 'A love story on the ill-fated Titanic', '7:00 PM', 'Friday', 1),
-(2, 7.8, '2h 10m', 'Action', 'Mr. & Mrs. Smith', 7.5, 'A married couple discovers they are both assassins', '8:00 PM', 'Saturday', 1);
-INSERT INTO actor_actress (name, surname, movie_id) VALUES 
-('Leonardo', 'DiCaprio', 1),
-('Kate', 'Winslet', 1),
-('Brad', 'Pitt', 2),
-('Angelina', 'Jolie', 2);
-INSERT INTO cinema (cinema_id, name, location, city, address, theaters) VALUES 
-(1, 'Cinema 1', 'Downtown', 'City A', '123 Main St', 'Theater 1, Theater 2'),
-(2, 'Cinema 2', 'Uptown', 'City B', '456 Elm St', 'Theater 3, Theater 4');
-INSERT INTO user (user_id, name, surname, password, movies_watched, birth_date, tickets, email) VALUES 
-(1, 'John', 'Doe', 'password_hash_1', 'Titanic', '1990-01-01', '1', 'john.doe@example.com'),
-(2, 'Jane', 'Smith', 'password_hash_2', 'Mr. & Mrs. Smith', '1985-05-15', '2', 'jane.smith@example.com');
-
-INSERT INTO wallet (wallet_id, tickets, balance, coupons, credit_cards, user_id) VALUES 
-('1', '1', '100', 'Coupon 1', '', 1),
-('2', '2', '200', 'Coupon 2', '', 2);
-
-INSERT INTO credit_card (card_number, cvv, expiration_year, expiration_month, wallet_id) VALUES 
-('1111222233334444', 123, 2025, 'Jan', '1'),
-('5555666677778888', 456, 2026, 'Feb', '2');
-INSERT INTO filter (f_city, f_cinema, f_day, f_rating, f_is_released, f_genre, cinema_id, user_id) VALUES 
-('City A', 'Cinema 1', 'Friday', 'PG-13', 1, 'Drama', 1, 1),
-('City B', 'Cinema 2', 'Saturday', 'R', 1, 'Action', 2, 2);
-INSERT INTO rates (r_comment, r_star, r_date, movie_id, user_id) VALUES 
-('Great movie!', 5, '2023-07-01', 1, 1),
-('Not bad', 3, '2023-07-02', 2, 2);
-INSERT INTO theatre (theatre_id, num_of_seats, seats, cinema_id) VALUES 
-(1, 100, 'A1-A100', 1),
-(2, 150, 'B1-B150', 2);
-
-INSERT INTO seat (seat_id, is_empty, theater_id, cinema_id) VALUES 
-(1, 1, 1, 1),
-(2, 0, 1, 1),
-(3, 1, 2, 2),
-(4, 0, 2, 2);
-INSERT INTO ticket (ticket_id, day, showtime, cinema_id, theater_id, seat_id, movie_id, user_id) VALUES 
-(1, 'Friday', '7:00 PM', 1, 1, 1, 1, 1),
-(2, 'Saturday', '8:00 PM', 2, 2, 3, 2, 2);
-
-
-
-
-
+-- Dump completed on 2024-07-21 18:28:26
