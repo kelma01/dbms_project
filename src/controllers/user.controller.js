@@ -75,7 +75,6 @@ exports.register = (req, res) => {
         });
       }
       else {
-        console.log("A");
         const newWallet = new Wallet({
           wallet_id: userData.id, // user_id ile aynı olacak
           balance: 0.00,
@@ -84,7 +83,6 @@ exports.register = (req, res) => {
           coupons: "",
           user_id: userData.id
         });
-        console.log("B");
 
         Wallet.create(newWallet, (err, walletData) => {
           if (err)
