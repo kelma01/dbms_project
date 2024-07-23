@@ -13,8 +13,11 @@
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */; 
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+--
+-- Table structure for table `actor_actress`
+--
 
 DROP TABLE IF EXISTS `actor_actress`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -34,6 +37,7 @@ CREATE TABLE `actor_actress` (
 
 LOCK TABLES `actor_actress` WRITE;
 /*!40000 ALTER TABLE `actor_actress` DISABLE KEYS */;
+INSERT INTO `actor_actress` VALUES ('Şahan','Gökbakar',1),('Çağatay','Ulusoy',1);
 /*!40000 ALTER TABLE `actor_actress` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +137,7 @@ DROP TABLE IF EXISTS `movie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `movie` (
-  `movie_id` int NOT NULL,
+  `movie_id` int NOT NULL AUTO_INCREMENT,
   `rate` decimal(10,2) DEFAULT NULL,
   `duration` varchar(45) DEFAULT NULL,
   `genre` varchar(45) DEFAULT NULL,
@@ -144,7 +148,7 @@ CREATE TABLE `movie` (
   `days` varchar(45) DEFAULT NULL,
   `is_released` tinyint DEFAULT NULL,
   PRIMARY KEY (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,6 +157,7 @@ CREATE TABLE `movie` (
 
 LOCK TABLES `movie` WRITE;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
+INSERT INTO `movie` VALUES (1,9.90,'110','Comedy','Recep İvedik 3',NULL,'GOAT',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,10 +172,10 @@ CREATE TABLE `rates` (
   `r_comment` varchar(45) DEFAULT NULL,
   `r_star` int DEFAULT NULL,
   `r_date` date DEFAULT NULL,
-  `movie_id` int NOT NULL,
   `user_id` int NOT NULL,
-  KEY `rates_movie_id` (`movie_id`),
+  `movie_id` int NOT NULL,
   KEY `rates_user_id` (`user_id`),
+  KEY `rates_movie_id` (`movie_id`),
   CONSTRAINT `rates_movie_id` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
   CONSTRAINT `rates_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -182,6 +187,7 @@ CREATE TABLE `rates` (
 
 LOCK TABLES `rates` WRITE;
 /*!40000 ALTER TABLE `rates` DISABLE KEYS */;
+INSERT INTO `rates` VALUES ('Dünyanın en iyi filmidir.',10,'2015-07-15',8,1);
 /*!40000 ALTER TABLE `rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,15 +205,12 @@ CREATE TABLE `seat` (
   `seat_row` char(1) NOT NULL,
   `seat_col` int NOT NULL,
   `theater_id` int NOT NULL,
-  `ticket_id` int DEFAULT NULL,
   PRIMARY KEY (`seat_id`,`cinema_id`,`theater_id`),
   UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
   KEY `seat_cinema_id` (`cinema_id`),
   KEY `seat_theater_id` (`theater_id`),
-  KEY `seat_ticket_id` (`ticket_id`),
   CONSTRAINT `seat_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
-  CONSTRAINT `seat_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
-  CONSTRAINT `seat_ticket_id` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticket_id`)
+  CONSTRAINT `seat_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,7 +220,7 @@ CREATE TABLE `seat` (
 
 LOCK TABLES `seat` WRITE;
 /*!40000 ALTER TABLE `seat` DISABLE KEYS */;
-INSERT INTO `seat` VALUES (1,0,99,'A',2,1,NULL);
+INSERT INTO `seat` VALUES (1,0,99,'A',2,1);
 /*!40000 ALTER TABLE `seat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +260,7 @@ DROP TABLE IF EXISTS `ticket`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ticket` (
-  `ticket_id` int NOT NULL,
+  `ticket_id` int NOT NULL AUTO_INCREMENT,
   `day` varchar(45) NOT NULL,
   `showtime` varchar(45) NOT NULL,
   `movie_id` int NOT NULL,
@@ -266,17 +269,17 @@ CREATE TABLE `ticket` (
   `seat_id` int NOT NULL,
   `theater_id` int NOT NULL,
   PRIMARY KEY (`ticket_id`),
-  UNIQUE KEY `movie_id_UNIQUE` (`movie_id`),
   KEY `ticket_user_id` (`user_id`),
   KEY `ticket_cinema_id` (`cinema_id`),
   KEY `ticket_seat_id` (`seat_id`),
   KEY `ticket_theater_id` (`theater_id`),
+  KEY `ticket_movie_id` (`movie_id`),
   CONSTRAINT `ticket_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
   CONSTRAINT `ticket_movie_id` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
   CONSTRAINT `ticket_seat_id` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
   CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
   CONSTRAINT `ticket_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,6 +288,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+INSERT INTO `ticket` VALUES (1,'Sat','20:00',1,8,99,1,2);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-21 18:28:26
+-- Dump completed on 2024-07-23 21:31:54
