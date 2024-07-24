@@ -13,9 +13,11 @@
   "description": "",
   "dependencies": {
     "body-parser": "*",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

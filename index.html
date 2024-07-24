@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmFreaks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+    <div class="logo-container">
+        <img src="assets/LOGO3.png" alt="FilmFreaks Logo" class="logo">
+    </div>
+    <div class="auth-buttons">
+        <button id="login-button">Login</button>
+        <button id="register-button">Register</button>
+        <span id="user-info" style="display: none;">
+            <a href="#" id="user-email"></a>
+            <div id="profile-menu" class="profile-menu" style="display: none;">
+                <button id="logout-button">Logout</button>
+            </div>
+        </span>
+    </div>
+</header>
+    <main>
+        <section id="movies">
+            <!-- Filmler burada listelenecek -->
+        </section>
+    </main>
+
+    <!-- Movie Modal -->
+    <div id="movie-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="movie-title"></h2>
+            <p id="movie-description"></p>
+            <p><strong>Duration:</strong> <span id="movie-duration"></span></p>
+            <p><strong>Rate:</strong> <span id="movie-rate"></span></p>
+            <p><strong>Genre:</strong> <span id="movie-genre"></span></p>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" namea="email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required>
+                <label for="register-name">Name:</label>
+                <input type="text" id="register-name" name="name" required>
+                <label for="register-surname">Surname:</label>
+                <input type="text" id="register-surname" name="surname" required>
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
+                <label for="register-confirm-password">Confirm Password:</label>
+                <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                <label for="register-birth-date">Birth Date:</label>
+                <input type="date" id="register-birth-date" name="birthDate">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

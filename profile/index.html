@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="LOGO3.png" alt="Logo" class="logo">
+        </div>
+        <div class="auth-buttons">
+            <span id="user-info">User Name</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="profile-settings">
+            <h1>Profile Settings</h1>
+            <form id="profile-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" name="surname" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="birth-date">Birth Date:</label>
+                <input type="date" id="birth-date" name="birth_date">
+                
+                <button type="submit">Save Changes</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

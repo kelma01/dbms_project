@@ -11,6 +11,7 @@ const User = function(user) {
   this.tickets = user.tickets;
 };
 
+
 User.create = (newUser, result) => {
   sql.query("INSERT INTO user SET ?", newUser, (err, res) => {
     if (err) {

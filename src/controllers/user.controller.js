@@ -3,6 +3,7 @@ const User = require('../models/user.model');
 const Wallet = require('../models/wallet.model');
 const CreditCard = require('../models/credit_card.model');
 
+
 function hashPassword(password){
   return crypto.createHash('sha256').update(password).digest('hex');
 }
@@ -96,7 +97,6 @@ exports.register = (req, res) => {
   });
 };
 
-
 exports.login = (req, res) => {
   if (!req.body) {
     res.status(400).send({
@@ -109,12 +109,18 @@ exports.login = (req, res) => {
   const password = hashPassword(req.body.password);
 
   User.findByEmail(email, (err, user) => {
-
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving the user."
+      });
+      return;
+    }
+    
     if (user && user.password === password) {
       res.send({
         message: "Login successful",
         user_id: user.user_id,
-        wallet_id: user.wallet_id
+        name: user.name
       });
     } else {
       res.status(401).send({
@@ -122,24 +128,21 @@ exports.login = (req, res) => {
       });
     }
   });
-
-  Wallet.findByUserId(user.id, (err, wallet) => {
-    if (err) {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving the Wallet."
-      });
-      return;
-    }
-
-    CreditCard.findByWalletId(wallet.wallet_id, (err, creditCards) => {
-      if (err) {
-        res.status(500).send({
-          message: err.message || "Some error occurred while retrieving the Credit Cards."
-        });
-        return;
-      }
-
-      res.send({ user, wallet, creditCards });
-    });
-  });
 };
+// user.controller.js
+exports.updateProfile = (req, res) => {
+  const { name, surname, email, birth_date } = req.body;
+  const userId = req.user.id; // Kullanıcının ID'si, oturum açma sırasında alınmış olmalı
+
+  db.query(
+      'UPDATE users SET name = ?, surname = ?, email = ?, birth_date = ? WHERE id = ?',
+      [name, surname, email, birth_date, userId],
+      (error, results) => {
+          if (error) {
+              return res.status(500).json({ message: 'Database error' });
+          }
+          res.json({ success: true });
+      }
+  );
+};
+
