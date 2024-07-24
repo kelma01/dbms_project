@@ -3,9 +3,9 @@ const sql = require('../config/db_config');
 const Wallet = function(wallet) {
     this.wallet_id = wallet.wallet_id; //user_id ile aynı
     this.balance = wallet.balance;  
-    this.tickets = wallet.tickets;
+    this.ticket = wallet.ticket;
     this.credit_cards = wallet.credit_cards;
-    this.coupons = wallet.coupons;
+    this.coupon = wallet.coupon;
     this.user_id = wallet.user_id;
 };
 
