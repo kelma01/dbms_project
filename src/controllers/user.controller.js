@@ -3,10 +3,12 @@ const User = require('../models/user.model');
 const Wallet = require('../models/wallet.model');
 const CreditCard = require('../models/credit_card.model');
 
-function hashPassword(password){
+// Şifreyi hash'leme fonksiyonu
+function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
+// Kullanıcı oluşturma
 exports.create = (req, res) => {
   const newUser = new User({
     user_id: req.body.user_id,
@@ -20,8 +22,6 @@ exports.create = (req, res) => {
   });
 
   User.create(newUser, (err, data) => {
-    console.log("kullanıcının adı: " + newUser.name);
-    console.log(err);
     if (err)
       res.status(500).send({
         message: err.message || "Some error occurred while creating the User."
@@ -30,6 +30,7 @@ exports.create = (req, res) => {
   });
 };
 
+// Tüm kullanıcıları listeleme
 exports.findAll = (req, res) => {
   User.getAll((err, data) => {
     if (err)
@@ -40,10 +41,11 @@ exports.findAll = (req, res) => {
   });
 };
 
+// Kullanıcı kayıt işlemi
 exports.register = (req, res) => {
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content cannot be empty!"
     });
     return;
   }
@@ -69,12 +71,11 @@ exports.register = (req, res) => {
     });
 
     User.create(newUser, (err, userData) => {
-      if (err){
+      if (err) {
         res.status(500).send({
           message: err.message || "Some error occurred while creating the User."
         });
-      }
-      else {
+      } else {
         const newWallet = new Wallet({
           wallet_id: userData.id, // user_id ile aynı olacak
           balance: 0.00,
@@ -96,25 +97,31 @@ exports.register = (req, res) => {
   });
 };
 
-
+// Kullanıcı giriş işlemi
 exports.login = (req, res) => {
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content cannot be empty!"
     });
     return;
   }
- 
+
   const email = req.body.email;
   const password = hashPassword(req.body.password);
 
   User.findByEmail(email, (err, user) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving the user."
+      });
+      return;
+    }
 
     if (user && user.password === password) {
       res.send({
         message: "Login successful",
         user_id: user.user_id,
-        wallet_id: user.wallet_id
+        name: user.name
       });
     } else {
       res.status(401).send({
@@ -122,24 +129,26 @@ exports.login = (req, res) => {
       });
     }
   });
+};
 
-  Wallet.findByUserId(user.id, (err, wallet) => {
+// Kullanıcı profili güncelleme
+exports.updateProfile = (req, res) => {
+  const { id, name, surname, email, birth_date } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ success: false, message: 'User ID is required.' });
+  }
+
+  User.update(id, { name, surname, email, birth_date }, (err, result) => {
     if (err) {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving the Wallet."
-      });
-      return;
+      console.error('Error occurred:', err);
+      return res.status(500).json({ success: false, message: 'Failed to update profile.' });
     }
 
-    CreditCard.findByWalletId(wallet.wallet_id, (err, creditCards) => {
-      if (err) {
-        res.status(500).send({
-          message: err.message || "Some error occurred while retrieving the Credit Cards."
-        });
-        return;
-      }
+    if (result.kind === 'not_found') {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
 
-      res.send({ user, wallet, creditCards });
-    });
+    res.json({ success: true, message: 'Profile updated successfully.' });
   });
 };

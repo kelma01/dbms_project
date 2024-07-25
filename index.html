@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmFreaks</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="http://localhost:5500">
+                <img src="../assets/LOGO3.png" alt="Logo" class="logo">
+            </a>
+        </div>
+        <div class="auth-buttons">
+            <button id="login-button">Login</button>
+            <button id="register-button">Register</button>
+            <span id="user-info" style="display:none;"></span>
+            <span id="user-email" style="display:none;">user@example.com</span>
+            <div id="profile-menu" style="display:none;">
+                <button id="profile-settings-button">Profile Settings</button>
+                <button id="logout-button">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="movies"></div>
+    </main>
+
+    <div id="login-modal" class="modal">
+        <!-- Login form modal içeriği burada -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <!-- Register form modal içeriği burada -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="register-form">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required>
+                <label for="register-name">Name:</label>
+                <input type="text" id="register-name" name="name" required>
+                <label for="register-surname">Surname:</label>
+                <input type="text" id="register-surname" name="surname" required>
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
+                <label for="register-confirm-password">Confirm Password:</label>
+                <input type="password" id="register-confirm-password" name="confirm-password" required>
+                <label for="register-birth-date">Birth Date:</label>
+                <input type="date" id="register-birth-date" name="birth_date">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="movie-modal" class="modal">
+        <!-- Movie details modal içeriği burada -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="movie-title"></h2>
+            <p id="movie-description"></p>
+            <p id="movie-duration"></p>
+            <p id="movie-rate"></p>
+            <p id="movie-genre"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

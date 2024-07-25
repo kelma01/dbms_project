@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #4882bc;
+}
+
+.logo-container {
+    margin-right: auto;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    margin-left: 10px;
+}
+
+#movies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+}
+
+.movie {
+    border: 1px solid #ddd;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.profile-menu {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-menu button {
+    background-color: #f8f9fa;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.profile-menu button:hover {
+    background-color: #e2e6ea;
+}
