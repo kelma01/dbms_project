@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    // Kullanıcı bilgilerini localStorage'dan al
+    const username = localStorage.getItem('username');
+    if (username) {
+        handleUserLogin(username);
+    }
+
+    // Film verilerini almak için sunucuya istek gönder
     try {
         const response = await fetch('http://localhost:3001/movies');
         if (!response.ok) {
@@ -7,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const movies = await response.json();
         const moviesContainer = document.getElementById('movies');
 
+        // Film verilerini ekrana yerleştir
         movies.forEach(movie => {
             const movieElement = document.createElement('div');
             movieElement.className = 'movie';
@@ -81,7 +89,7 @@ const handleUserLogin = (username) => {
     loginButton.style.display = 'none';
     registerButton.style.display = 'none';
     userInfo.style.display = 'inline';
-    userEmail.textContent = username;
+    userEmail.textContent = `Merhaba ${username}`; // Kullanıcı adını “Merhaba [isim]” şeklinde göster
     userEmail.style.display = 'inline';
 };
 
@@ -91,6 +99,10 @@ const handleLogout = () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // localStorage'dan kullanıcı bilgilerini temizleyin
+                localStorage.removeItem('userId');
+                localStorage.removeItem('username');
+                
                 loginButton.style.display = 'inline';
                 registerButton.style.display = 'inline';
                 userInfo.style.display = 'none';
@@ -124,31 +136,6 @@ function showMovieDetails(movie) {
     movieModal.style.display = 'block';
 }
 
-// Login formu gönderme olayı
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-
-    fetch('http://localhost:3001/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.name) {
-            handleUserLogin(data.name);
-            loginModal.style.display = 'none';
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-});
-
 // Register formu gönderme olayı
 document.getElementById('register-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -181,6 +168,41 @@ document.getElementById('register-form').addEventListener('submit', function(eve
         }
     })
     .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('login-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:3001/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Kullanıcı ID'sini ve adını localStorage'a kaydedin
+            if (data) {
+                localStorage.setItem('userId', data.user_id);
+                localStorage.setItem('username', data.name);
+                alert('Login successful!');
+                window.location.href = 'http://localhost:5500'; // Anasayfaya yönlendir
+            } else {
+                alert('Invalid response from server.');
+            }
+        } else {
+            alert('Login failed: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('An error occurred during login. Please try again later.');
+    }
 });
 
 // Logout butonuna tıklama olayı

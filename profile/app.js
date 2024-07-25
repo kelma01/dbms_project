@@ -1,16 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userInfo = document.getElementById('user-info');
-    
-    // Burada kullanıcı adı yerine "User Name" gösteriliyor, bunu dinamik olarak ayarlamalısınız
-    userInfo.textContent = 'User Name'; 
+    const logo = document.querySelector('.logo');
 
+    // Kullanıcı bilgilerini göstermek
+    userInfo.textContent = 'User Name'; // Bu kısımdaki 'User Name' kısmını doğru kullanıcı adıyla güncelleyin
+
+    // Profil ayarları sayfasına yönlendirme
     userInfo.addEventListener('click', () => {
         alert('Profile settings page');
-        // Profil ayarları için yönlendirme veya açma işlemi burada yapılabilir
     });
 
+    // Logo tıklama yönlendirmesi
+    logo.addEventListener('click', () => {
+        window.location.href = 'http://localhost:5500';
+    });
+
+    // Profil güncelleme formu
     document.getElementById('profile-form').addEventListener('submit', async function(event) {
         event.preventDefault();
+        
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert('User ID not found. Please log in again.');
+            return;
+        }
+
         const name = document.getElementById('name').value;
         const surname = document.getElementById('surname').value;
         const email = document.getElementById('email').value;
@@ -22,17 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name, surname, email, birth_date: birthDate })
+                body: JSON.stringify({ id: userId, name, surname, email, birth_date: birthDate })
             });
-            const data = await response.json();
-            if (data.success) {
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Profile updated:', data);
                 alert('Profile updated successfully!');
+                window.location.href = 'http://localhost:5500'; // Redirect
             } else {
-                alert('Failed to update profile.');
+                const errorText = await response.text();
+                console.error('Failed response status:', response.status);
+                console.error('Failed response text:', errorText);
+                alert('Failed to update profile: ' + errorText);
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while updating the profile.');
+            console.error('Fetch error:', error);
+            alert('An error occurred while updating the profile. Please try again later.');
         }
     });
 });
