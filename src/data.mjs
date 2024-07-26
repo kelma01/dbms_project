@@ -9,7 +9,7 @@ const apiKey = '15991e40';
 const baseUrl = 'https://www.omdbapi.com/';
 
 // Total number of pages to fetch
-const totalPages = 10; // For example, 10 pages
+const totalPages = 15; // For example, 10 pages
 
 // File paths
 const dataFilePath = path.resolve('c:\\Users\\halil melih\\dbms_project\\src\\data.mjs');
@@ -96,7 +96,7 @@ async function fetchAllMovies() {
     const movieDetails = await Promise.all(movieDetailsPromises);
 
     let sqlStatements = '';
-    let movieIdCounter = 45;
+    let movieIdCounter = 20;
 
     movieDetails.forEach(details => {
         if (details) {
