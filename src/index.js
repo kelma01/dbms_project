@@ -26,6 +26,7 @@ require('./routes/movie.routes')(app);
 require('./routes/actor_actress.routes')(app);
 require('./routes/ticket.routes')(app);
 require('./routes/rates.routes')(app);
+require("./routes/show.routes.js")(app);
 
 app.listen(PORT, () => console.log(`Running Server on Port ${PORT}`));
 
