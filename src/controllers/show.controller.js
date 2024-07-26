@@ -12,7 +12,8 @@ exports.create = (req, res) => {
   const newShow = new Show({
     movie_id: req.body.movie_id,
     theater_id: req.body.theater_id,
-    show_time: req.body.show_time
+    show_hour: req.body.show_hour,
+    show_day: req.body.show_day
   });
 
   Show.create(newShow, (err, data) => {

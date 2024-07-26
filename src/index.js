@@ -15,7 +15,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 require('./routes/user.routes')(app);
 require('./routes/wallet.routes')(app);
 require('./routes/credit_card.routes')(app);
