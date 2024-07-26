@@ -16,7 +16,6 @@ exports.create = (req, res) => {
     name: req.body.name,
     surname: req.body.surname,
     password: req.body.password,
-    movies_watched: req.body.movies_watched,
     birth_date: req.body.birth_date,
     tickets: req.body.tickets
   });
@@ -64,7 +63,6 @@ exports.register = (req, res) => {
       email: req.body.email,
       name: req.body.name,
       surname: req.body.surname,
-      movies_watched: req.body.movies_watched,
       birth_date: req.body.birth_date,
       tickets: req.body.tickets,
       password: hashedPassword
@@ -79,9 +77,9 @@ exports.register = (req, res) => {
         const newWallet = new Wallet({
           wallet_id: userData.id, // user_id ile aynı olacak
           balance: 0.00,
-          tickets: "",
-          credit_cards: "",
-          coupons: "",
+          tickets: null,
+          credit_cards: null,
+          coupons: null,
           user_id: userData.id
         });
 

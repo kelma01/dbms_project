@@ -6,7 +6,6 @@ const User = function(user) {
   this.name = user.name;
   this.surname = user.surname;
   this.password = user.password;
-  this.movies_watched = user.movies_watched;
   this.birth_date = user.birth_date;
   this.tickets = user.tickets;
 };

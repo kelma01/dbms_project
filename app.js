@@ -213,7 +213,6 @@ document.getElementById('login-form').addEventListener('submit', async function(
             if (data) {
                 localStorage.setItem('userId', data.user_id);
                 localStorage.setItem('username', data.name);
-                alert('Login successful!');
                 window.location.href = 'http://localhost:5500'; // Anasayfaya yönlendir
             } else {
                 alert('Invalid response from server.');

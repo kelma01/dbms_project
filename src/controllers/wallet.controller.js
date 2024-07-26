@@ -4,9 +4,9 @@ exports.create = (req, res) => {
   const newWallet = new Wallet({
     wallet_id: req.body.wallet_id, //user_id ile aynı 
     balance: req.body.balance || 0.00,
-    ticket: req.body.ticket || "",
-    credit_cards: req.body.credit_cards || "",
-    coupon: req.body.coupon || ""
+    tickets: null,
+    credit_cards: req.body.credit_cards || null,
+    coupons: req.body.coupons || null
   });
 
   Wallet.create(newWallet, (err, data) => {
