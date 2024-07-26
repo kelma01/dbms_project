@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const movieElement = document.createElement('div');
             movieElement.className = 'movie';
             movieElement.innerHTML = `
-                <img src="${movie.image_id}.jpg" alt="${movie.name}">
+                <img src="${movie.image_id}" alt="${movie.name}">
                 <h2>${movie.name}</h2>
                 <p>${movie.description}</p>
             `;
