@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Film verilerini ekrana yerleştir
         movies.forEach(movie => {
-            //FOTOSU OLANLAR SADECE GÖSTERİLSİN DİYE > 50 KONULDU ÇIKARILACAK
-            if(movie.movie_id > 50){
             const movieElement = document.createElement('div');
             movieElement.className = 'movie';
             movieElement.innerHTML = `
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p>${movie.description}</p>
             `;
             movieElement.addEventListener('click', () => showMovieDetails(movie));
-            moviesContainer.appendChild(movieElement);}
+            moviesContainer.appendChild(movieElement);
         });
     } catch (error) {
         console.error('Failed to fetch movies:', error);
