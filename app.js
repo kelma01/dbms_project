@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Film verilerini ekrana yerleştir
         movies.forEach(movie => {
+            //FOTOSU OLANLAR SADECE GÖSTERİLSİN DİYE > 50 KONULDU ÇIKARILACAK
+            if(movie.movie_id > 50){
             const movieElement = document.createElement('div');
             movieElement.className = 'movie';
             movieElement.innerHTML = `
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p>${movie.description}</p>
             `;
             movieElement.addEventListener('click', () => showMovieDetails(movie));
-            moviesContainer.appendChild(movieElement);
+            moviesContainer.appendChild(movieElement);}
         });
     } catch (error) {
         console.error('Failed to fetch movies:', error);
@@ -33,15 +35,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+
+
 // Modal elementleri
 const loginModal = document.getElementById('login-modal');
 const registerModal = document.getElementById('register-modal');
+const showRegisterLink = document.getElementById('show-register');
+const showLoginLink = document.getElementById('show-login');
 const movieModal = document.getElementById('movie-modal');
 const movieTitle = document.getElementById('movie-title');
 const movieDescription = document.getElementById('movie-description');
 const movieDuration = document.getElementById('movie-duration');
 const movieRate = document.getElementById('movie-rate');
 const movieGenre = document.getElementById('movie-genre');
+const moviePoster = document.getElementById('movie-poster');
 const loginButton = document.getElementById('login-button');
 const registerButton = document.getElementById('register-button');
 const closeModalElements = document.getElementsByClassName('close');
@@ -50,6 +57,18 @@ const profileMenu = document.getElementById('profile-menu');
 const profileSettingsButton = document.getElementById('profile-settings-button');
 const logoutButton = document.getElementById('logout-button');
 const userEmail = document.getElementById('user-email');
+
+showRegisterLink.onclick = function() {
+    loginModal.style.display = 'none';
+    registerModal.style.display = 'block';
+};
+
+// Giriş yap linkine tıklama olayı
+showLoginLink.onclick = function() {
+    registerModal.style.display = 'none';
+    loginModal.style.display = 'block';
+};
+
 
 // Login butonuna tıklama olayı
 loginButton.onclick = function() {
@@ -89,7 +108,7 @@ const handleUserLogin = (username) => {
     loginButton.style.display = 'none';
     registerButton.style.display = 'none';
     userInfo.style.display = 'inline';
-    userEmail.textContent = `Merhaba ${username}`; // Kullanıcı adını “Merhaba [isim]” şeklinde göster
+    userEmail.textContent = `Merhaba, ${username.charAt(0).toUpperCase()}${username.substring(1)}`; // Kullanıcı adını “Merhaba [isim]” şeklinde göster
     userEmail.style.display = 'inline';
 };
 
@@ -133,8 +152,11 @@ function showMovieDetails(movie) {
     movieDuration.textContent = movie.duration;
     movieRate.textContent = movie.rate;
     movieGenre.textContent = movie.genre;
+    moviePoster.src = movie.image_id;
+    moviePoster.alt = movie.name;
     movieModal.style.display = 'block';
 }
+
 
 // Register formu gönderme olayı
 document.getElementById('register-form').addEventListener('submit', function(event) {

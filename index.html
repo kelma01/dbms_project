@@ -32,12 +32,20 @@
     <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Login</h2>
+            </div>
             <form id="login-form">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Login</button>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="submit-button">Login</button>
+                <p class="form-footer">Don't have an account? <a href="#" id="show-register">Register here</a></p>
             </form>
         </div>
     </div>
@@ -45,20 +53,36 @@
     <div id="register-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Register</h2>
+            </div>
             <form id="register-form">
-                <label for="register-email">Email:</label>
-                <input type="email" id="register-email" name="email" required>
-                <label for="register-name">Name:</label>
-                <input type="text" id="register-name" name="name" required>
-                <label for="register-surname">Surname:</label>
-                <input type="text" id="register-surname" name="surname" required>
-                <label for="register-password">Password:</label>
-                <input type="password" id="register-password" name="password" required>
-                <label for="register-confirm-password">Confirm Password:</label>
-                <input type="password" id="register-confirm-password" name="confirm-password" required>
-                <label for="register-birth-date">Birth Date:</label>
-                <input type="date" id="register-birth-date" name="birth_date">
-                <button type="submit">Register</button>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-name">Name:</label>
+                    <input type="text" id="register-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-surname">Surname:</label>
+                    <input type="text" id="register-surname" name="surname" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password:</label>
+                    <input type="password" id="register-confirm-password" name="confirm-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-birth-date">Birth Date:</label>
+                    <input type="date" id="register-birth-date" name="birth_date">
+                </div>
+                <button type="submit" class="submit-button">Register</button>
+                <p class="form-footer">Already have an account? <a href="#" id="show-login">Login here</a></p>
             </form>
         </div>
     </div>
@@ -66,11 +90,16 @@
     <div id="movie-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 id="movie-title"></h2>
-            <p id="movie-description"></p>
-            <p id="movie-duration"></p>
-            <p id="movie-rate"></p>
-            <p id="movie-genre"></p>
+            <div class="movie-details">
+                <img id="movie-poster" src="" alt="Movie Poster">
+                <div class="movie-info">
+                    <h2 id="movie-title"></h2>
+                    <p id="movie-description"></p>
+                    <p><strong>Duration:</strong> <span id="movie-duration"></span></p>
+                    <p><strong>Rate:</strong> <span id="movie-rate"></span></p>
+                    <p><strong>Genre:</strong> <span id="movie-genre"></span></p>
+                </div>
+            </div>
         </div>
     </div>
 
