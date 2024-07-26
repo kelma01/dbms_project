@@ -1,13 +1,15 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #182c413a;
 }
 
 header {
     display: flex;
     align-items: center;
-    padding: 10px;
-    background-color: #f8f9fa;
+    padding: 15px 30px;
+    background-color: #4882bc;
+    color: white;
 }
 
 .logo-container {
@@ -24,18 +26,24 @@ header {
     align-items: center;
 }
 
-#user-info {
-    cursor: pointer;
-    font-size: 18px;
-}
 
 main {
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 #profile-settings {
-    max-width: 600px;
+    max-width: 700px;
     margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #343a40;
 }
 
 form {
@@ -44,22 +52,33 @@ form {
 }
 
 label {
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #495057;
 }
 
 input {
-    margin-bottom: 10px;
-    padding: 8px;
+    margin-bottom: 20px;
+    padding: 12px;
     font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+input:focus {
+    border-color: #80bdff;
+    outline: none;
 }
 
 button {
-    padding: 10px;
+    padding: 12px 20px;
     font-size: 16px;
     background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {

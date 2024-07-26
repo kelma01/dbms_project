@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logo = document.querySelector('.logo');
 
     // Kullanıcı bilgilerini göstermek
-    userInfo.textContent = 'User Name'; // Bu kısımdaki 'User Name' kısmını doğru kullanıcı adıyla güncelleyin
+    userInfo.textContent = ''; // Bu kısımdaki 'User Name' kısmını doğru kullanıcı adıyla güncelleyin
 
     // Profil ayarları sayfasına yönlendirme
     userInfo.addEventListener('click', () => {
