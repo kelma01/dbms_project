@@ -228,7 +228,7 @@ button {
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
 
-#profile-settings-button, #logout-button {
+#profile-settings-button, #logout-button, #my-tickets-button {
     background-color: #007bff; /* Mavi arka plan rengi */
     color: #ffffff; /* Beyaz yazı rengi */
     border: none;
@@ -241,12 +241,12 @@ button {
     margin: 5px 0; /* Butonlar arasında boşluk bırakma */
 }
 
-#profile-settings-button:hover, #logout-button:hover {
+#profile-settings-button:hover, #logout-button:hover, #my-tickets-button:hover {
     background-color: #0056b3; /* Hover efekti için daha koyu mavi */
     transform: scale(1.05); /* Hover efekti için büyütme */
 }
 
-#profile-settings-button:active, #logout-button:active {
+#profile-settings-button:active, #logout-button:active, #my-tickets-button:active {
     background-color: #004080; /* Tıklama efekti için daha koyu mavi */
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
@@ -305,4 +305,21 @@ button {
 
 .movie-info p strong {
     font-weight: bold;
+}
+
+.tickets-list {
+    padding: 20px;
+}
+
+.ticket {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.tickets-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }

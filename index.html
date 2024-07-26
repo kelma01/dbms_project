@@ -20,6 +20,7 @@
             <span id="user-email" style="display:none;">user@example.com</span>
             <div id="profile-menu" style="display:none;">
                 <button id="profile-settings-button">Profile Settings</button>
+                <button id="my-tickets-button">My Tickets</button>
                 <button id="logout-button">Logout</button>
             </div>
         </div>
@@ -102,6 +103,17 @@
             </div>
         </div>
     </div>
+
+    <div id="tickets-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="tickets-list">
+                <h2>My Tickets</h2>
+                <div id="tickets-container"></div>
+            </div>
+        </div>
+    </div>
+    
 
     <script src="app.js"></script>
 </body>

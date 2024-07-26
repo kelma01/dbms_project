@@ -55,6 +55,56 @@ const profileMenu = document.getElementById('profile-menu');
 const profileSettingsButton = document.getElementById('profile-settings-button');
 const logoutButton = document.getElementById('logout-button');
 const userEmail = document.getElementById('user-email');
+const ticketsModal = document.getElementById('tickets-modal');
+const ticketsContainer = document.getElementById('tickets-container');
+const myTicketsButton = document.getElementById('my-tickets-button');
+
+myTicketsButton.onclick = function() {
+    ticketsModal.style.display = 'block';
+    loadUserTickets(); // Kullanıcının biletlerini yükle
+};
+
+// Biletleri yükleyen fonksiyon
+const loadUserTickets = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    try {
+        const response = await fetch(`http://localhost:3001/tickets?userId=${userId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const tickets = await response.json();
+
+        // Biletleri ekrana yerleştir
+        ticketsContainer.innerHTML = '';
+        tickets.forEach(ticket => {
+            const ticketElement = document.createElement('div');
+            ticketElement.className = 'ticket';
+            ticketElement.innerHTML = `
+                <p>Ticket ID: ${ticket.ticket_id}</p>
+            `;
+            ticketsContainer.appendChild(ticketElement);
+        });
+    } catch (error) {
+        console.error('Failed to fetch tickets:', error);
+        ticketsContainer.textContent = 'Failed to fetch tickets';
+    }
+};
+
+// Modal kapatma
+Array.from(closeModalElements).forEach(close => {
+    close.onclick = function() {
+        close.parentElement.parentElement.style.display = 'none';
+    }
+});
+
+// Modal dışına tıklama ile kapatma
+window.onclick = function(event) {
+    if (event.target == ticketsModal) {
+        ticketsModal.style.display = 'none';
+    }
+};
 
 showRegisterLink.onclick = function() {
     loginModal.style.display = 'none';
