@@ -24,17 +24,34 @@ exports.create = (req, res) => {
   });
 };
 
-// Belirli ID'ye sahip gösteriyi bulma
-exports.findOne = (req, res) => {
-  Show.findById(req.params.showId, (err, data) => {
+// Belirli movie_id'ye sahip gösterileri bulma
+exports.findByMovieId = (req, res) => {
+  Show.findByMovieId(req.params.movieId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Show with id ${req.params.showId}.`
+          message: `Not found Shows with movie_id ${req.params.movieId}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Show with id " + req.params.showId
+          message: "Error retrieving Shows with movie_id " + req.params.movieId
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+// Belirli theater_id'ye sahip gösterileri bulma
+exports.findByTheaterId = (req, res) => {
+  Show.findByTheaterId(req.params.theaterId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Shows with theater_id ${req.params.theaterId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Shows with theater_id " + req.params.theaterId
         });
       }
     } else res.send(data);

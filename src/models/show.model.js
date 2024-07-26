@@ -18,24 +18,24 @@ Show.create = (newShow, result) => {
   });
 };
 
-// Film id'si ile gösteri bulma
-Show.findById = (id, result) => {
-  sql.query("SELECT * FROM show WHERE movie_id = ?", [movie_id], (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-    if (res.length) {
-      result(null, res[0]);
-      return;
-    }
-    result({ kind: "not_found" }, null);
-  });
-};
-
-// Theater id'si ile gösteri bulma
-Show.findById = (id, result) => {
+// movie_id ile show bulma
+Show.findByMovieId = (movie_id, result) => {
+    sql.query("SELECT * FROM show WHERE movie_id = ?", [movie_id], (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+      if (res.length) {
+        result(null, res);
+        return;
+      }
+      result({ kind: "not_found" }, null);
+    });
+  };
+  
+  // theater_id ile show bulma
+  Show.findByTheaterId = (theater_id, result) => {
     sql.query("SELECT * FROM show WHERE theater_id = ?", [theater_id], (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -43,23 +43,7 @@ Show.findById = (id, result) => {
         return;
       }
       if (res.length) {
-        result(null, res[0]);
-        return;
-      }
-      result({ kind: "not_found" }, null);
-    });
-  };
-
-  // Theater ve movie id'si ile gösteri bulma
-Show.findById = (id, result) => {
-    sql.query("SELECT * FROM show WHERE theater_id = ? AND movie_id = ?", [theater_id, movie_id], (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-      if (res.length) {
-        result(null, res[0]);
+        result(null, res);
         return;
       }
       result({ kind: "not_found" }, null);

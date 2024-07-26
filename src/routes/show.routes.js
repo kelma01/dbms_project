@@ -7,8 +7,11 @@ module.exports = app => {
     // Tüm gösterileri getirme
     app.get("/shows", shows.findAll);
   
-    // Belirli ID'ye sahip gösteriyi bulma
-    app.get("/shows/:showId", shows.findOne);
+    // Belirli movie_id'ye sahip gösterileri bulma
+    app.get("/shows/movie/:movieId", shows.findByMovieId);
+  
+    // Belirli theater_id'ye sahip gösterileri bulma
+    app.get("/shows/theater/:theaterId", shows.findByTheaterId);
   
     // Belirli ID'ye sahip gösteriyi güncelleme
     app.put("/shows/:showId", shows.update);
@@ -16,3 +19,4 @@ module.exports = app => {
     // Belirli ID'ye sahip gösteriyi silme
     app.delete("/shows/:showId", shows.delete);
   };
+  
