@@ -50,7 +50,6 @@ DROP TABLE IF EXISTS `cinema`;
 CREATE TABLE `cinema` (
   `cinema_id` int NOT NULL,
   `name` varchar(45) NOT NULL,
-  `location` varchar(45) NOT NULL,
   `city` varchar(45) NOT NULL,
   `address` varchar(405) NOT NULL,
   `theaters` varchar(45) DEFAULT NULL,
@@ -201,12 +200,14 @@ CREATE TABLE `seat` (
   `is_empty` tinyint NOT NULL,
   `theater_id` int NOT NULL,
   `cinema_id` int NOT NULL,
+  `seat_row` char(1) NOT NULL,
+  `seat_col` int NOT NULL,
   PRIMARY KEY (`theater_id`,`cinema_id`,`seat_id`),
   UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
   KEY `cinema_id_idx` (`cinema_id`),
   KEY `seat_cinema_id_idx` (`cinema_id`),
   CONSTRAINT `seat_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
-  CONSTRAINT `seat_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theatre` (`theatre_id`)
+  CONSTRAINT `seat_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,31 +221,31 @@ LOCK TABLES `seat` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `theatre`
+-- Table structure for table `theater`
 --
 
-DROP TABLE IF EXISTS `theatre`;
+DROP TABLE IF EXISTS `theater`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `theatre` (
-  `theatre_id` int NOT NULL,
+CREATE TABLE `theater` (
+  `theater_id` int NOT NULL,
   `num_of_seats` int NOT NULL,
   `seats` varchar(45) DEFAULT NULL,
   `cinema_id` int NOT NULL,
-  PRIMARY KEY (`theatre_id`,`cinema_id`),
+  PRIMARY KEY (`theater_id`,`cinema_id`),
   UNIQUE KEY `cinema_id_UNIQUE` (`cinema_id`),
-  UNIQUE KEY `theatre_id_UNIQUE` (`theatre_id`),
-  CONSTRAINT `theatre_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`)
+  UNIQUE KEY `theater_id_UNIQUE` (`theater_id`),
+  CONSTRAINT `theater_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `theatre`
+-- Dumping data for table `theater`
 --
 
-LOCK TABLES `theatre` WRITE;
-/*!40000 ALTER TABLE `theatre` DISABLE KEYS */;
-/*!40000 ALTER TABLE `theatre` ENABLE KEYS */;
+LOCK TABLES `theater` WRITE;
+/*!40000 ALTER TABLE `theater` DISABLE KEYS */;
+/*!40000 ALTER TABLE `theater` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -272,7 +273,7 @@ CREATE TABLE `ticket` (
   CONSTRAINT `ticket_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
   CONSTRAINT `ticket_movie_id` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
   CONSTRAINT `ticket_seat_id` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
-  CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theatre` (`theatre_id`),
+  CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
   CONSTRAINT `ticket_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -491,15 +492,15 @@ INSERT INTO actor_actress (name, surname, movie_id) VALUES
 ('Robin', 'Wright', 43),
 ('Elijah', 'Wood', 44),
 ('Viggo', 'Mortensen', 44);
-INSERT INTO cinema (cinema_id, name, location, city, address, theaters) VALUES 
-(1, 'Cinema 1', 'Downtown', 'City A', '123 Main St', 'Theater 1, Theater 2'),
-(2, 'Cinema 2', 'Uptown', 'City B', '456 Elm St', 'Theater 3, Theater 4'),
-(3, 'Cinema 3', 'Midtown', 'City C', '789 Oak St', 'Theater 5, Theater 6'),
-(4, 'Cinema 4', 'Suburb', 'City D', '101 Pine St', 'Theater 7, Theater 8'),
-(5, 'Cinema 5', 'Downtown', 'City E', '112 Maple St', 'Theater 9, Theater 10'),
-(6, 'Cinema 6', 'Uptown', 'City F', '131 Cedar St', 'Theater 11, Theater 12'),
-(7, 'Cinema 7', 'Midtown', 'City G', '141 Walnut St', 'Theater 13, Theater 14'),
-(8, 'Cinema 8', 'Suburb', 'City H', '151 Birch St', 'Theater 15, Theater 16');
+INSERT INTO cinema (cinema_id, name, city, address, theaters) VALUES 
+(1, 'Cinema 1', 'City A', '123 Main St', 'Theater 1, Theater 2'),
+(2, 'Cinema 2', 'City B', '456 Elm St', 'Theater 3, Theater 4'),
+(3, 'Cinema 3', 'City C', '789 Oak St', 'Theater 5, Theater 6'),
+(4, 'Cinema 4', 'City D', '101 Pine St', 'Theater 7, Theater 8'),
+(5, 'Cinema 5', 'City E', '112 Maple St', 'Theater 9, Theater 10'),
+(6, 'Cinema 6', 'City F', '131 Cedar St', 'Theater 11, Theater 12'),
+(7, 'Cinema 7', 'City G', '141 Walnut St', 'Theater 13, Theater 14'),
+(8, 'Cinema 8', 'City H', '151 Birch St', 'Theater 15, Theater 16');
 INSERT INTO user (user_id, name, surname, password, movies_watched, birth_date, tickets, email) VALUES 
 (1, 'John', 'Doe', 'password_hash_1', 'Titanic', '1990-01-01', '1', 'john.doe@example.com'),
 (2, 'Jane', 'Smith', 'password_hash_2', 'Mr. & Mrs. Smith', '1985-05-15', '2', 'jane.smith@example.com');
@@ -520,7 +521,7 @@ INSERT INTO rates (r_comment, r_star, r_date, movie_id, user_id) VALUES
 ('Not bad', 3, '2023-07-02', 2, 2),
 ('Awesome!', 5, '2023-07-03', 3, 1),
 ('Good', 4, '2023-07-04', 4, 2);
-INSERT INTO theatre (theatre_id, num_of_seats, seats, cinema_id) VALUES 
+INSERT INTO theater (theater_id, num_of_seats, seats, cinema_id) VALUES 
 (1, 100, 'A1-A100', 1),
 (2, 150, 'B1-B150', 2),
 (3, 200, 'C1-C200', 3),
@@ -530,23 +531,23 @@ INSERT INTO theatre (theatre_id, num_of_seats, seats, cinema_id) VALUES
 (7, 400, 'G1-G400', 7),
 (8, 450, 'H1-H450', 8);
 
-INSERT INTO seat (seat_id, is_empty, theater_id, cinema_id) VALUES 
-(1, 1, 1, 1),
-(2, 0, 1, 1),
-(3, 1, 2, 2),
-(4, 0, 2, 2),
-(5, 1, 3, 3),
-(6, 0, 3, 3),
-(7, 1, 4, 4),
-(8, 0, 4, 4),
-(9, 1, 5, 5),
-(10, 0, 5, 5),
-(11, 1, 6, 6),
-(12, 0, 6, 6),
-(13, 1, 7, 7),
-(14, 0, 7, 7),
-(15, 1, 8, 8),
-(16, 0, 8, 8);
+INSERT INTO seat (seat_id, is_empty, theater_id, cinema_id, seat_row, seat_col) VALUES 
+(1, 1, 1, 1, 'A', 1),
+(2, 0, 1, 1, 'B', 2),
+(3, 1, 2, 2, 'C', 3),
+(4, 0, 2, 2, 'D', 4),
+(5, 1, 3, 3, 'E', 5),
+(6, 0, 3, 3, 'A', 6),
+(7, 1, 4, 4, 'B', 7),
+(8, 0, 4, 4, 'D', 8),
+(9, 1, 5, 5, 'E', 9),
+(10, 0, 5, 5, 'A', 10),
+(11, 1, 6, 6, 'B', 11),
+(12, 0, 6, 6, 'C', 12),
+(13, 1, 7, 7, 'D', 13),
+(14, 0, 7, 7, 'E', 14),
+(15, 1, 8, 8, 'F', 15),
+(16, 0, 8, 8, 'A', 16);
 INSERT INTO ticket (ticket_id, day, showtime, cinema_id, theater_id, seat_id, movie_id, user_id) VALUES 
 (1, 'Friday', '7:00 PM', 1, 1, 1, 1, 1),
 (2, 'Saturday', '8:00 PM', 2, 2, 3, 2, 2);
