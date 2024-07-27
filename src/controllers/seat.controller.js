@@ -10,8 +10,7 @@ exports.create = (req, res) => {
     const seat = new Seat({
         seat_id: req.body.seat_id,
         is_empty: req.body.is_empty,
-        seat_row: req.body.seat_row,
-        seat_col: req.body.seat_col,
+        seat_loc: req.body.seat_loc,
         cinema_id: req.body.cinema_id,
         theater_id: req.body.theater_id
     });
@@ -41,6 +40,16 @@ exports.findByCinemaAndTheaterId = (req, res) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving seats."
+            });
+        } else res.send(data);
+    });
+};
+
+exports.findBySeatId = (req, res) => {
+    Seat.findById(req.params.seat_id, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving seat."
             });
         } else res.send(data);
     });
