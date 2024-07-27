@@ -38,11 +38,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Add click event listener to the purchase button
     purchaseButton.addEventListener("click", function () {
-        // Toggle visibility of the ticket purchase form
+        // Show the ticket purchase form if it is not already visible
         if (ticketPurchaseForm.style.display === "none") {
             ticketPurchaseForm.style.display = "block";
-        } else {
-            ticketPurchaseForm.style.display = "none";
         }
     });
 });
@@ -238,6 +236,12 @@ async function showMovieDetails(movie) {
     var movieGenre = document.getElementById('movie-genre');
     var moviePoster = document.getElementById('movie-poster');
     var movieModal = document.getElementById('movie-modal');
+    var ticketPurchaseForm = document.getElementById('ticket-purchase-form');
+    var purchaseButton = document.getElementById('purchase-button');
+
+    // Her yeni film seçildiğinde formu ve butonu sıfırla
+    ticketPurchaseForm.style.display = 'none';
+    purchaseButton.disabled = false;
 
     movieTitle.textContent = movie.name;
     movieDescription.textContent = movie.description;
