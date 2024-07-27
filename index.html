@@ -88,11 +88,12 @@
         </div>
     </div>
 
+    <!-- Movie Modal -->
     <div id="movie-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="movie-details">
-                <img id="movie-poster" src="" alt="Movie Poster">
+                <img id="movie-poster" alt="Movie Poster">
                 <div class="movie-info">
                     <h2 id="movie-title"></h2>
                     <p id="movie-description"></p>
@@ -100,6 +101,23 @@
                     <p><strong>Rate:</strong> <span id="movie-rate"></span></p>
                     <p><strong>Genre:</strong> <span id="movie-genre"></span></p>
                 </div>
+            </div>
+            <button id="purchase-button">Bilet Satın Al</button>
+            <!-- Bilet satın alma formu, başlangıçta gizli olacak -->
+            <div id="ticket-purchase-form" style="display: none;">
+                <label for="city-select">Şehir Seç:</label>
+                <select id="city-select"></select>
+    
+                <label for="cinema-select">Sinema Seç:</label>
+                <select id="cinema-select"></select>
+    
+                <label for="seat-select">Koltuk Seç:</label>
+                <select id="seat-select"></select>
+    
+                <label for="showtime-select">Seans Seç:</label>
+                <select id="showtime-select"></select>
+    
+                <button id="confirm-purchase">Satın Al</button>
             </div>
         </div>
     </div>

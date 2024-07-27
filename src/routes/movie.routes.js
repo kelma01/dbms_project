@@ -10,3 +10,4 @@ module.exports = app => {
     
     app.delete('/movies/:movie_id', movies.delete);
 };
+

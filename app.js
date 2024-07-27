@@ -216,7 +216,8 @@ profileSettingsButton.onclick = function() {
 };
 
 // Film detaylarını gösteren fonksiyon
-function showMovieDetails(movie) {
+async function showMovieDetails(movie) {
+    console.log('Selected movie:', movie); // Debug: movie nesnesini kontrol et
     movieTitle.textContent = movie.name;
     movieDescription.textContent = movie.description;
     movieDuration.textContent = movie.duration;
@@ -225,7 +226,121 @@ function showMovieDetails(movie) {
     moviePoster.src = movie.image_id;
     moviePoster.alt = movie.name;
     movieModal.style.display = 'block';
+
+    try {
+        const response = await fetch(`http://localhost:3001/movie/${movie.id}/showtimes`);
+        const data = await response.json();
+        
+        const citySelect = document.getElementById('city-select');
+        const showtimeSelect = document.getElementById('showtime-select');
+        const cinemaSelect = document.getElementById('cinema-select');
+        const seatSelect = document.getElementById('seat-select');
+
+        // Önceki seçenekleri temizle
+        citySelect.innerHTML = ''; 
+        showtimeSelect.innerHTML = ''; 
+        cinemaSelect.innerHTML = ''; 
+        seatSelect.innerHTML = ''; 
+
+        // Şehir seçeneklerini doldur
+        const cities = [...new Set(data.map(show => show.city))];
+        cities.forEach(city => {
+            const cityOption = document.createElement('option');
+            cityOption.value = city;
+            cityOption.textContent = city;
+            citySelect.appendChild(cityOption);
+        });
+
+        // Şehir seçildiğinde yapılacak işlemi ayarla
+        citySelect.addEventListener('change', (e) => {
+            const selectedCity = e.target.value;
+            const filteredShows = data.filter(show => show.city === selectedCity);
+
+            // Sinema seçeneklerini doldur
+            const cinemas = [...new Set(filteredShows.map(show => show.cinema))];
+            cinemaSelect.innerHTML = '';
+            cinemas.forEach(cinema => {
+                const cinemaOption = document.createElement('option');
+                cinemaOption.value = cinema;
+                cinemaOption.textContent = cinema;
+                cinemaSelect.appendChild(cinemaOption);
+            });
+
+            // Sinema seçildiğinde yapılacak işlemi ayarla
+            cinemaSelect.addEventListener('change', (e) => {
+                const selectedCinema = e.target.value;
+                const filteredShowtimes = filteredShows.filter(show => show.cinema === selectedCinema);
+
+                // Seans seçeneklerini doldur
+                const showtimes = [...new Set(filteredShowtimes.map(show => show.showtime))];
+                showtimeSelect.innerHTML = '';
+                showtimes.forEach(showtime => {
+                    const showtimeOption = document.createElement('option');
+                    showtimeOption.value = showtime;
+                    showtimeOption.textContent = showtime;
+                    showtimeSelect.appendChild(showtimeOption);
+                });
+
+                // Seans seçildiğinde yapılacak işlemi ayarla
+                showtimeSelect.addEventListener('change', (e) => {
+                    const selectedShowtime = e.target.value;
+                    const filteredSeats = filteredShows.filter(show => show.showtime === selectedShowtime);
+
+                    // Koltuk seçeneklerini doldur
+                    const seats = [...new Set(filteredSeats.map(show => show.seat))];
+                    seatSelect.innerHTML = '';
+                    seats.forEach(seat => {
+                        const seatOption = document.createElement('option');
+                        seatOption.value = seat;
+                        seatOption.textContent = seat;
+                        seatSelect.appendChild(seatOption);
+                    });
+                });
+            });
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
+
+
+// Bilet satın al butonuna tıklama olayı
+purchaseButton.addEventListener('click', () => {
+    ticketPurchaseForm.style.display = 'block';
+});
+
+// Bilet satın al formunu kapatma işlevi
+confirmPurchaseButton.addEventListener('click', () => {
+    const city = citySelect.value;
+    const cinema = cinemaSelect.value;
+    const showtime = showtimeSelect.value;
+    const seat = seatSelect.value;
+
+    if (!city || !cinema || !showtime || !seat) {
+        alert('Please select all options.');
+        return;
+    }
+
+    // Bilet satın alma isteği gönder
+    fetch('http://localhost:3001/purchase-ticket', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ city, cinema, showtime, seat })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Ticket purchased successfully!');
+            movieModal.style.display = 'none'; // Modalı kapat
+            ticketPurchaseForm.style.display = 'none'; // Formu kapat
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
 
 
 // Register formu gönderme olayı
