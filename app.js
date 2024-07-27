@@ -31,17 +31,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const moviesContainer = document.getElementById('movies');
         moviesContainer.textContent = 'Failed to fetch movies';
     }
-    // Purchase button element
-    var purchaseButton = document.getElementById("purchase-button");
-    // Ticket purchase form element
-    var ticketPurchaseForm = document.getElementById("ticket-purchase-form");
 
-    // Add click event listener to the purchase button
-    purchaseButton.addEventListener("click", function () {
-        // Show the ticket purchase form if it is not already visible
-        if (ticketPurchaseForm.style.display === "none") {
-            ticketPurchaseForm.style.display = "block";
-        }
+    // Bilet satın al butonuna tıklama olayı
+    document.getElementById("purchase-button").addEventListener("click", function () {
+        const ticketPurchaseForm = document.getElementById("ticket-purchase-form");
+        ticketPurchaseForm.style.display = ticketPurchaseForm.style.display === "none" ? "block" : "none";
     });
 });
 
@@ -227,19 +221,133 @@ profileSettingsButton.onclick = function() {
     window.location.href = 'http://localhost:5500/profile/';
 };
 
-async function showMovieDetails(movie) {
-    console.log('Selected movie:', movie); // Debug: movie nesnesini kontrol et
-    var movieTitle = document.getElementById('movie-title');
-    var movieDescription = document.getElementById('movie-description');
-    var movieDuration = document.getElementById('movie-duration');
-    var movieRate = document.getElementById('movie-rate');
-    var movieGenre = document.getElementById('movie-genre');
-    var moviePoster = document.getElementById('movie-poster');
-    var movieModal = document.getElementById('movie-modal');
-    var ticketPurchaseForm = document.getElementById('ticket-purchase-form');
-    var purchaseButton = document.getElementById('purchase-button');
 
-    // Her yeni film seçildiğinde formu ve butonu sıfırla
+document.getElementById('city-select').addEventListener('change', async function() {
+    const selectedCity = this.value;
+    if (!selectedCity) return;
+
+    await getCinemasForCity(selectedCity); // Sinemaları getir
+    document.getElementById('showtime-select').innerHTML = '<option value="">Select Showtime</option>'; // Seans seçimini temizle
+});
+
+document.getElementById('theatre-select').addEventListener('change', async function() {
+    const selectedTheatreId = this.value;
+    const selectedMovieId = movieModal.dataset.movieId; // Modal'dan seçilen film ID'sini alın
+    if (!selectedTheatreId || !selectedMovieId) return;
+
+    await getShowtimesForTheatre(selectedTheatreId, selectedMovieId); // Seansları getirin
+});
+document.getElementById('cinema-select').addEventListener('change', async function() {
+    const selectedCinemaId = this.value;
+    if (!selectedCinemaId) return;
+
+    await getTheatresForCinema(selectedCinemaId); // Theater'ları getirin
+    showtimeSelect.innerHTML = '<option value="">Select Showtime</option>'; // Seans seçimini temizleyin
+});
+async function getCinemasForCity(city) {
+    try {
+        const response = await fetch(`http://localhost:3001/cities/${city}/cinemas`);
+        const cinemas = await response.json();
+        const cinemaSelect = document.getElementById('cinema-select');
+        cinemaSelect.innerHTML = '<option value="">Select Cinema</option>';
+        cinemas.forEach(cinema => {
+            const cinemaOption = document.createElement('option');
+            cinemaOption.value = cinema.cinema_id;
+            cinemaOption.textContent = cinema.name;
+            cinemaSelect.appendChild(cinemaOption);
+        });
+    } catch (error) {
+        console.error('Error fetching cinemas:', error);
+    }
+}
+
+async function getTheatresForCinema(cinemaId) {
+    try {
+        const response = await fetch(`http://localhost:3001/cinemas/${cinemaId}/theaters`);
+        const theatres = await response.json();
+        const theatreSelect = document.getElementById('theatre-select');
+        theatreSelect.innerHTML = '<option value="">Select Theatre</option>';
+        theatres.forEach(theatre => {
+            const theatreOption = document.createElement('option');
+            theatreOption.value = theatre.theater_id;
+            theatreOption.textContent = `Theatre ${theatre.theater_id}`;
+            theatreSelect.appendChild(theatreOption);
+        });
+    } catch (error) {
+        console.error('Error fetching theatres:', error);
+    }
+}
+
+async function getSeatsForShowtime(theaterId) {
+    try {
+        const response = await fetch(`http://localhost:3001/seats?theaterId=${theaterId}`);
+        const seats = await response.json();
+
+        if (!Array.isArray(seats)) {
+            throw new Error('Invalid data format');
+        }
+
+        const seatSelect = document.getElementById('seat-select');
+        seatSelect.innerHTML = '<option value="">Select Seat</option>';
+
+        seats.forEach(seat => {
+            if (seat.is_empty) {
+                const option = document.createElement('option');
+                option.value = seat.seat_id;
+                option.textContent = seat.seat_loc;
+                seatSelect.appendChild(option);
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching seats:', error);
+    }
+}
+
+// Seçilen sinema ve gösterim için koltukları getirmek
+//async function handleShowtimeChange() {
+//    const selectedShowtime = document.getElementById('showtime-select').value;
+//    const theaterId = showtimes.find(st => `${st.show_day} ${st.show_hour}` === selectedShowtime)?.theater_id;
+//    if (theaterId) {
+//        await getSeatsForShowtime(theaterId);
+//    }
+//}
+//
+//document.getElementById('showtime-select').addEventListener('change', handleShowtimeChange);
+
+async function getShowtimesForTheatre(theaterId, movieId) {
+    try {
+        const response = await fetch(`http://localhost:3001/showtimes?theaterId=${theaterId}&movieId=${movieId}`);
+        const showtimes = await response.json();
+        const showtimeSelect = document.getElementById('showtime-select');
+        showtimeSelect.innerHTML = '<option value="">Select Showtime</option>';
+        showtimes.forEach(showtime => {
+            const option = document.createElement('option');
+            option.value = `${showtime.show_day} ${showtime.show_hour}`;
+            option.textContent = `${showtime.show_day} ${showtime.show_hour}`;
+            showtimeSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error fetching showtimes:', error);
+    }
+}
+
+
+async function showMovieDetails(movie) {
+    const movieTitle = document.getElementById('movie-title');
+    const movieDescription = document.getElementById('movie-description');
+    const movieDuration = document.getElementById('movie-duration');
+    const movieRate = document.getElementById('movie-rate');
+    const movieGenre = document.getElementById('movie-genre');
+    const moviePoster = document.getElementById('movie-poster');
+    const movieModal = document.getElementById('movie-modal');
+    const ticketPurchaseForm = document.getElementById('ticket-purchase-form');
+    const purchaseButton = document.getElementById('purchase-button');
+    const citySelect = document.getElementById('city-select');
+    const cinemaSelect = document.getElementById('cinema-select');
+    const showtimeSelect = document.getElementById('showtime-select');
+    const seatSelect = document.getElementById('seat-select');
+
+    // Set movie details
     ticketPurchaseForm.style.display = 'none';
     purchaseButton.disabled = false;
 
@@ -251,82 +359,45 @@ async function showMovieDetails(movie) {
     moviePoster.src = movie.image_id;
     moviePoster.alt = movie.name;
     movieModal.style.display = 'block';
+    
+    // Save movie ID for later use
+    movieModal.dataset.movieId = movie.movie_id;
 
     try {
-        const response = await fetch(`http://localhost:3001/movie/${movie.id}/showtimes`);
-        const data = await response.json();
-
-        const citySelect = document.getElementById('city-select');
-        const showtimeSelect = document.getElementById('showtime-select');
-        const cinemaSelect = document.getElementById('cinema-select');
-        const seatSelect = document.getElementById('seat-select');
-
-        // Önceki seçenekleri temizle
-        citySelect.innerHTML = ''; 
-        showtimeSelect.innerHTML = ''; 
-        cinemaSelect.innerHTML = ''; 
-        seatSelect.innerHTML = ''; 
-
-        // Şehir seçeneklerini doldur
-        const cities = [...new Set(data.map(show => show.city))];
-        cities.forEach(city => {
-            const cityOption = document.createElement('option');
-            cityOption.value = city;
-            cityOption.textContent = city;
-            citySelect.appendChild(cityOption);
+        const cinemasResponse = await fetch('http://localhost:3001/cinemas');
+        const cinemas = await cinemasResponse.json();
+        const cityOptions = [...new Set(cinemas.map(cinema => cinema.city))];
+        citySelect.innerHTML = '<option value="">Select City</option>';
+        cityOptions.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
         });
 
-        // Şehir seçildiğinde yapılacak işlemi ayarla
-        citySelect.addEventListener('change', (e) => {
-            const selectedCity = e.target.value;
-            const filteredShows = data.filter(show => show.city === selectedCity);
+        citySelect.addEventListener('change', async function() {
+            const selectedCity = this.value;
+            if (!selectedCity) return;
 
-            // Sinema seçeneklerini doldur
-            const cinemas = [...new Set(filteredShows.map(show => show.cinema))];
-            cinemaSelect.innerHTML = '';
-            cinemas.forEach(cinema => {
-                const cinemaOption = document.createElement('option');
-                cinemaOption.value = cinema;
-                cinemaOption.textContent = cinema;
-                cinemaSelect.appendChild(cinemaOption);
+            const filteredCinemas = cinemas.filter(cinema => cinema.city === selectedCity);
+            cinemaSelect.innerHTML = '<option value="">Select Cinema</option>';
+            filteredCinemas.forEach(cinema => {
+                const option = document.createElement('option');
+                option.value = cinema.cinema_id;
+                option.textContent = cinema.name;
+                cinemaSelect.appendChild(option);
             });
-
-            // Sinema seçildiğinde yapılacak işlemi ayarla
-            cinemaSelect.addEventListener('change', (e) => {
-                const selectedCinema = e.target.value;
-                const filteredShowtimes = filteredShows.filter(show => show.cinema === selectedCinema);
-
-                // Seans seçeneklerini doldur
-                const showtimes = [...new Set(filteredShowtimes.map(show => show.showtime))];
-                showtimeSelect.innerHTML = '';
-                showtimes.forEach(showtime => {
-                    const showtimeOption = document.createElement('option');
-                    showtimeOption.value = showtime;
-                    showtimeOption.textContent = showtime;
-                    showtimeSelect.appendChild(showtimeOption);
-                });
-
-                // Seans seçildiğinde yapılacak işlemi ayarla
-                showtimeSelect.addEventListener('change', (e) => {
-                    const selectedShowtime = e.target.value;
-                    const filteredSeats = filteredShows.filter(show => show.showtime === selectedShowtime);
-
-                    // Koltuk seçeneklerini doldur
-                    const seats = [...new Set(filteredSeats.map(show => show.seat))];
-                    seatSelect.innerHTML = '';
-                    seats.forEach(seat => {
-                        const seatOption = document.createElement('option');
-                        seatOption.value = seat;
-                        seatOption.textContent = seat;
-                        seatSelect.appendChild(seatOption);
-                    });
-                });
-            });
+            
+            // Clear previous showtimes
+            showtimeSelect.innerHTML = '<option value="">Select Showtime</option>';
         });
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Failed to fetch cinemas:', error);
     }
 }
+
+
+
 
 
 // Bilet satın al butonuna tıklama olayı
