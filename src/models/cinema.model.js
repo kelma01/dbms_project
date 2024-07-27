@@ -29,7 +29,7 @@ Cinema.getAll = (result) => {
 };
 
 Cinema.findById = (id, result) => {
-    sql.query("SELECT * FROM cinema WHERE id = ?", [id], (err, res) => {
+    sql.query("SELECT * FROM cinema WHERE cinema_id = ?", [id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -45,7 +45,7 @@ Cinema.findById = (id, result) => {
 
 Cinema.updateById = (id, cinema, result) => {
     sql.query(
-        "UPDATE cinema SET name = ?, location = ?, capacity = ? WHERE id = ?",
+        "UPDATE cinema SET name = ?, location = ?, capacity = ? WHERE cinema_id = ?",
         [cinema.name, cinema.location, cinema.capacity, id],
         (err, res) => {
             if (err) {

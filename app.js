@@ -70,7 +70,7 @@ const loadUserTickets = async () => {
     if (!userId) return;
 
     try {
-        const response = await fetch(`http://localhost:3001/tickets?userId=${userId}`);
+        const response = await fetch(`http://localhost:3001/tickets/user/${userId}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -78,11 +78,30 @@ const loadUserTickets = async () => {
 
         // Biletleri ekrana yerleştir
         ticketsContainer.innerHTML = '';
-        tickets.forEach(ticket => {
+        tickets.forEach(async ticket => {
             const ticketElement = document.createElement('div');
             ticketElement.className = 'ticket';
+            const movieRes = await fetch(`http://localhost:3001/movies/${ticket.movie_id}`);
+            const movie = await movieRes.json();
+
+            const cinemaRes = await fetch(`http://localhost:3001/cinemas/${ticket.cinema_id}`);
+            const cinema = await cinemaRes.json();
+
+            const theaterRes = await fetch(`http://localhost:3001/theaters/${ticket.theater_id}`);
+            const theater = await theaterRes.json();
+            
+            const seatRes = await fetch(`http://localhost:3001/seats/${ticket.seat_id}`);
+            const seat = await seatRes.json();
+            
+
             ticketElement.innerHTML = `
-                <p>Ticket ID: ${ticket.ticket_id}</p>
+                <img src="${movie.image_id}" alt="${movie.name}">
+                <h2>${movie.name}</h2>
+                <p>Cinema: ${cinema.name}</p>
+                <p>Theater Number: ${theater.theater_no}</p>
+                <p>Seat Location: SEATLERİ GETİREMİYORUM NEDENİNİ ANLAMADIM</p>
+                <p>Day: ${ticket.day}</p>
+                <p>Time: ${ticket.showtime}</p>
             `;
             ticketsContainer.appendChild(ticketElement);
         });
@@ -145,6 +164,9 @@ window.onclick = function(event) {
     }
     if (event.target == movieModal) {
         movieModal.style.display = 'none';
+    }
+    if (event.target == ticketsModal) {
+        ticketsModal.style.display = 'none';
     }
     if (event.target != userEmail && !userEmail.contains(event.target) && !profileMenu.contains(event.target)) {
         profileMenu.style.display = 'none';

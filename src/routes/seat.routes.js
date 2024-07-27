@@ -4,6 +4,7 @@ module.exports = app => {
     app.post('/seats', seats.create);
 
     app.get('/seats', seats.findAll);
+    app.get('/seats/:seat_id', seats.findBySeatId);
     app.get('/seats/cinema/:cinema_id/theater/:theater_id', seats.findByCinemaAndTheaterId);
 
     app.put('/seats/:seat_id', seats.update);

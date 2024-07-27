@@ -2,8 +2,7 @@ const sql = require('../config/db_config');
 
 const Seat = function(seat) {
     this.is_empty = seat.is_empty;
-    this.seat_row = seat.seat_row;
-    this.seat_col = seat.seat_col;
+    this.seat_loc = seat.seat_loc;
     this.cinema_id = seat.cinema_id;
     this.theater_id = seat.theater_id;
 };
@@ -34,6 +33,20 @@ Seat.findByCinemaAndTheaterId = (cinema_id, theater_id, result) => {
     sql.query(
         "SELECT * FROM seat WHERE cinema_id = ? AND theater_id = ?",
         [cinema_id, theater_id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            result(null, res);
+        }
+    );
+};
+Seat.findById = (seat_id, result) => {
+    sql.query(
+        "SELECT * FROM seat WHERE seat_id = ?",
+        [seat_id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

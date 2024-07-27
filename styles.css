@@ -307,19 +307,47 @@ button {
     font-weight: bold;
 }
 
+
+/* Ticket Modal */
 .tickets-list {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ticket {
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Kartın genişliğini yüzdeye göre ayarlama */
+    max-width: 300px; /* Maksimum genişlik belirleme */
+    margin-bottom: 20px;
 }
 
-.tickets-list h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.ticket img {
+    width: 100%;
+    height: auto; /* Sabit yükseklik belirleme */
+    object-fit: cover; /* Posterlerin tam olarak sığması için */
+}
+
+.ticket h2 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.ticket p {
+    margin: 5px;
+    font-size: 14px;
+}
+
+.ticket:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }

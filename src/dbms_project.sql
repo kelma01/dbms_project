@@ -259,6 +259,7 @@ CREATE TABLE `theater` (
   `num_of_seats` int NOT NULL,
   `seats` varchar(45) DEFAULT NULL,
   `cinema_id` int NOT NULL,
+  `theater_no` int NOT NULL,
   PRIMARY KEY (`theater_id`,`cinema_id`),
   UNIQUE KEY `theater_id_UNIQUE` (`theater_id`),
   KEY `theater_cinema_id` (`cinema_id`),
@@ -272,7 +273,7 @@ CREATE TABLE `theater` (
 
 LOCK TABLES `theater` WRITE;
 /*!40000 ALTER TABLE `theater` DISABLE KEYS */;
-INSERT INTO `theater` VALUES (1,16,'A1-D4',1),(2,20,'A1-D5',1),(3,16,'A1-D4',2),(4,20,'A1-D5',2),(5,16,'A1-D4',3),(6,20,'A1-D5',3);
+INSERT INTO `theater` VALUES (1,16,'A1-D4',1,1),(2,20,'A1-D5',1,2),(3,16,'A1-D4',2,1),(4,20,'A1-D5',2,2),(5,16,'A1-D4',3,1),(6,20,'A1-D5',3,2);
 /*!40000 ALTER TABLE `theater` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,11 +294,11 @@ CREATE TABLE `ticket` (
   `movie_id` int NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`ticket_id`),
-  UNIQUE KEY `theater_id_UNIQUE` (`theater_id`),
-  UNIQUE KEY `seat_id_UNIQUE` (`seat_id`),
-  UNIQUE KEY `movie_id_UNIQUE` (`movie_id`),
   KEY `ticket_cinema_id_idx` (`cinema_id`),
   KEY `ticket_user_id` (`user_id`),
+  KEY `ticket_movie_id` (`movie_id`),
+  KEY `ticket_theater_id` (`theater_id`),
+  KEY `ticket_seat_id` (`seat_id`),
   CONSTRAINT `ticket_cinema_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
   CONSTRAINT `ticket_movie_id` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
   CONSTRAINT `ticket_seat_id` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
@@ -312,6 +313,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+INSERT INTO `ticket` VALUES (1,'Monday','13:00',1,1,1,1,21),(2,'Monday','13:00',1,1,1,1,22),(3,'Wednesday','10:00',1,1,8,18,21);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +334,7 @@ CREATE TABLE `user` (
   `tickets` varchar(45) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,7 +343,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (21,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,'1111-11-11',NULL,'kelma@etu.edu.tr');
+INSERT INTO `user` VALUES (21,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,'1111-11-11',NULL,'kelma@etu.edu.tr'),(22,'aa','aa','961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506',NULL,'1111-11-11',NULL,'aakelma@etu.edu.tr');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +373,7 @@ CREATE TABLE `wallet` (
 
 LOCK TABLES `wallet` WRITE;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
-INSERT INTO `wallet` VALUES (NULL,'0',NULL,'21',NULL,21);
+INSERT INTO `wallet` VALUES (NULL,'0',NULL,'21',NULL,21),(NULL,'0',NULL,'22',NULL,22);
 /*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -384,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-27  0:07:54
+-- Dump completed on 2024-07-27 16:56:19
