@@ -228,7 +228,7 @@ button {
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
 
-#profile-settings-button, #logout-button {
+#profile-settings-button, #logout-button, #my-tickets-button {
     background-color: #007bff; /* Mavi arka plan rengi */
     color: #ffffff; /* Beyaz yazı rengi */
     border: none;
@@ -241,12 +241,12 @@ button {
     margin: 5px 0; /* Butonlar arasında boşluk bırakma */
 }
 
-#profile-settings-button:hover, #logout-button:hover {
+#profile-settings-button:hover, #logout-button:hover, #my-tickets-button:hover {
     background-color: #0056b3; /* Hover efekti için daha koyu mavi */
     transform: scale(1.05); /* Hover efekti için büyütme */
 }
 
-#profile-settings-button:active, #logout-button:active {
+#profile-settings-button:active, #logout-button:active, #my-tickets-button:active {
     background-color: #004080; /* Tıklama efekti için daha koyu mavi */
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
@@ -305,4 +305,49 @@ button {
 
 .movie-info p strong {
     font-weight: bold;
+}
+
+
+/* Ticket Modal */
+.tickets-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ticket {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Kartın genişliğini yüzdeye göre ayarlama */
+    max-width: 300px; /* Maksimum genişlik belirleme */
+    margin-bottom: 20px;
+}
+
+.ticket img {
+    width: 100%;
+    height: auto; /* Sabit yükseklik belirleme */
+    object-fit: cover; /* Posterlerin tam olarak sığması için */
+}
+
+.ticket h2 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.ticket p {
+    margin: 5px;
+    font-size: 14px;
+}
+
+.ticket:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
