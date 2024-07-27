@@ -31,6 +31,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         const moviesContainer = document.getElementById('movies');
         moviesContainer.textContent = 'Failed to fetch movies';
     }
+    // Purchase button element
+    var purchaseButton = document.getElementById("purchase-button");
+    // Ticket purchase form element
+    var ticketPurchaseForm = document.getElementById("ticket-purchase-form");
+
+    // Add click event listener to the purchase button
+    purchaseButton.addEventListener("click", function () {
+        // Toggle visibility of the ticket purchase form
+        if (ticketPurchaseForm.style.display === "none") {
+            ticketPurchaseForm.style.display = "block";
+        } else {
+            ticketPurchaseForm.style.display = "none";
+        }
+    });
 });
 
 
@@ -215,9 +229,16 @@ profileSettingsButton.onclick = function() {
     window.location.href = 'http://localhost:5500/profile/';
 };
 
-// Film detaylarını gösteren fonksiyon
 async function showMovieDetails(movie) {
     console.log('Selected movie:', movie); // Debug: movie nesnesini kontrol et
+    var movieTitle = document.getElementById('movie-title');
+    var movieDescription = document.getElementById('movie-description');
+    var movieDuration = document.getElementById('movie-duration');
+    var movieRate = document.getElementById('movie-rate');
+    var movieGenre = document.getElementById('movie-genre');
+    var moviePoster = document.getElementById('movie-poster');
+    var movieModal = document.getElementById('movie-modal');
+
     movieTitle.textContent = movie.name;
     movieDescription.textContent = movie.description;
     movieDuration.textContent = movie.duration;
@@ -230,7 +251,7 @@ async function showMovieDetails(movie) {
     try {
         const response = await fetch(`http://localhost:3001/movie/${movie.id}/showtimes`);
         const data = await response.json();
-        
+
         const citySelect = document.getElementById('city-select');
         const showtimeSelect = document.getElementById('showtime-select');
         const cinemaSelect = document.getElementById('cinema-select');
