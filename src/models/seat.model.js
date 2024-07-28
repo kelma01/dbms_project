@@ -43,6 +43,20 @@ Seat.findByCinemaAndTheaterId = (cinema_id, theater_id, result) => {
         }
     );
 };
+Seat.findbyTheaterId = (theater_id, result) => {
+    sql.query(
+        "SELECT * FROM seat WHERE theater_id = ?",
+        [theater_id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            result(null, res);
+        }
+    );
+};
 Seat.findById = (seat_id, result) => {
     sql.query(
         "SELECT * FROM seat WHERE seat_id = ?",

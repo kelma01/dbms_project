@@ -44,6 +44,15 @@ exports.findByCinemaAndTheaterId = (req, res) => {
         } else res.send(data);
     });
 };
+exports.findByTheaterId = (req, res) => {
+    Seat.findbyTheaterId(req.params.theater_id, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving seats."
+            });
+        } else res.send(data);
+    });
+};
 
 exports.findBySeatId = (req, res) => {
     Seat.findById(req.params.seat_id, (err, data) => {

@@ -228,7 +228,7 @@ button {
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
 
-#profile-settings-button, #logout-button {
+#profile-settings-button, #logout-button , #my-tickets-button {
     background-color: #007bff; /* Mavi arka plan rengi */
     color: #ffffff; /* Beyaz yazı rengi */
     border: none;
@@ -241,12 +241,12 @@ button {
     margin: 5px 0; /* Butonlar arasında boşluk bırakma */
 }
 
-#profile-settings-button:hover, #logout-button:hover {
+#profile-settings-button:hover, #logout-button:hover, #my-tickets-button:hover {
     background-color: #0056b3; /* Hover efekti için daha koyu mavi */
     transform: scale(1.05); /* Hover efekti için büyütme */
 }
 
-#profile-settings-button:active, #logout-button:active {
+#profile-settings-button:active, #logout-button:active, #my-tickets-button:active {
     background-color: #004080; /* Tıklama efekti için daha koyu mavi */
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
@@ -273,24 +273,25 @@ button {
     background-color: #1e7e34; /* Tıklama efekti için daha koyu yeşil */
     transform: scale(1.02); /* Tıklama efekti için küçültme */
 }
-
 .movie-details {
     display: flex;
-    flex-direction: row; /* Yatay hizalama */
+    flex-direction: column; /* Dikey hizalama */
     gap: 20px; /* Elemanlar arasında boşluk */
-    padding: 20px;
     width: 100%; /* Kart genişliğini ayarla */
-    max-width: 1000px; /* Maksimum genişlik sınırı */
-    margin: 0 auto; /* Ortalamak için otomatik margin */
+    max-width: 800px; /* Maksimum genişlik sınırı */
+    margin: auto; /* Ortalamak için otomatik margin */
 }
 
 .movie-details img {
-    height: auto;
-    border-radius: 10px;
+    width: 100%; /* Genişliği yüzdeye göre ayarla */
+    height: 300px; /* Sabit yükseklik belirleme */
+    object-fit:contain; /* Resmi kartın içinde fit et */
+    border-radius: 10px; /* Kenarları yuvarlat */
 }
 
 .movie-info {
     flex: 1; /* Bilgi kısmının esneklik kazandırılması */
+    padding: 0 20px; /* Metin kısmının kenar boşlukları */
 }
 
 .movie-info h2 {
@@ -306,7 +307,6 @@ button {
 .movie-info p strong {
     font-weight: bold;
 }
-
 
 /* Ticket Modal */
 .tickets-list {

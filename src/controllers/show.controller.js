@@ -59,6 +59,23 @@ exports.findByTheaterId = (req, res) => {
   });
 };
 
+// Belirli theater_id'ye sahip gösterileri bulma
+exports.findByTheaterMovieId = (req, res) => {
+  Show.findbyTheaterMovieId(req.params.theaterId, req.params.movieId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Shows.`
+        });
+      } else {
+        res.status(500).send({
+          message: `Error retrieving Shows.`
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 // Tüm gösterileri getirme
 exports.findAll = (req, res) => {
   Show.getAll((err, data) => {

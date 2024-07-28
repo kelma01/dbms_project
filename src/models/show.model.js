@@ -50,6 +50,20 @@ Show.findByMovieId = (movie_id, result) => {
       result({ kind: "not_found" }, null);
     });
   };
+  Show.findbyTheaterMovieId = (theater_id, movie_id, result) => {
+    sql.query("SELECT * FROM shows WHERE theater_id = ? AND movie_id = ?", [theater_id, movie_id], (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+      if (res.length) {
+        result(null, res);
+        return;
+      }
+      result({ kind: "not_found" }, null);
+    });
+  };
 
 // Tüm gösterileri getirme
 Show.getAll = (result) => {

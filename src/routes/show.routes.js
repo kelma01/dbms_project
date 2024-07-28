@@ -12,6 +12,9 @@ module.exports = app => {
   
     // Belirli theater_id'ye sahip gösterileri bulma
     app.get("/shows/theater/:theaterId", shows.findByTheaterId);
+
+    //belirli theater ve movie sahip gösteri bulma
+    app.get("/shows/theater/:theaterId/movie/:movieId", shows.findByTheaterMovieId)
   
     // Belirli ID'ye sahip gösteriyi güncelleme
     app.put("/shows/:showId", shows.update);
