@@ -70,6 +70,15 @@ const ticketsContainer = document.getElementById('tickets-container');
 const myTicketsButton = document.getElementById('my-tickets-button');
 const confirmPurchaseButton = document.getElementById('confirm-purchase-button');
 const theaterId = document.getElementById('theater-select');
+// Existing code
+
+// Select elements
+const purchaseButton = document.getElementById('confirm-purchase-button');
+const creditCardModal = document.getElementById('credit-card-modal');
+const closeCreditCardModal = creditCardModal.querySelector('.close');
+const creditCardForm = document.getElementById('credit-card-form');
+
+
 
 myTicketsButton.onclick = function() {
     ticketsModal.style.display = 'block';
@@ -463,7 +472,6 @@ confirmPurchaseButton.addEventListener('click', async () => {
         movie_id: movie_id,
         theater_id: selectedTheater,
     };
-
     // Bilet satın alma isteği gönder
     try {
         const response = await fetch('http://localhost:3001/tickets', {
@@ -474,11 +482,47 @@ confirmPurchaseButton.addEventListener('click', async () => {
             body: JSON.stringify(payload)
         });
         //burada ödeme kartına yönlendirmeli
-        movieModal.style.display = 'none'; // Modalı kapat
-        ticketPurchaseForm.style.display = 'none'; // Formu kapat
     } catch (error) {
         console.error('Error:', error);
     }
+});
+// Function to check if conditions are met
+function checkConditions() {
+    const seatSelected = document.getElementById('seat-select').value;
+    if (seatSelected !== "") {
+        return true;
+    }
+    return false;
+}
+
+// Show credit card modal when conditions are met
+purchaseButton.addEventListener('click', () => {
+    if (checkConditions()) {
+        creditCardModal.style.display = 'block';
+    } else {
+        alert('Please select a seat first!');
+    }
+});
+
+// Close the credit card modal when the 'close' button is clicked
+closeCreditCardModal.addEventListener('click', () => {
+    creditCardModal.style.display = 'none';
+});
+
+// Handle form submission
+creditCardForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const cardNumber = document.getElementById('card-number').value;
+    const expiryDate = document.getElementById('expiry-date').value;
+    const cvv = document.getElementById('cvv').value;
+
+    // Add your payment processing logic here
+
+    // Close the modal after submission
+    creditCardModal.style.display = 'none';
+    
+    movieModal.style.display = 'none'; // Modalı kapat
+    ticketPurchaseForm.style.display = 'none'; // Formu kapat
 });
 
 

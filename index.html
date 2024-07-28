@@ -125,7 +125,36 @@
                     <option value=""></option>
                 </select>
 
+                <!-- Existing code -->
+                <!-- Book Now Button -->
                 <button id="confirm-purchase-button">Book Now</button>
+
+                <!-- Kredi Kartı Pop-up -->
+                <div id="credit-card-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="modal-header">
+                            <h2>Enter Credit Card Details</h2>
+                        </div>
+                        <form id="credit-card-form">
+                            <div class="form-group">
+                                <label for="card-number">Card Number:</label>
+                                <input type="text" id="card-number" name="card-number" maxlength="16" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiry-date">Expiry Date:</label>
+                                <input type="month" id="expiry-date" name="expiry-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV:</label>
+                                <input type="text" id="cvv" name="cvv" maxlength="3" required>
+                            </div>
+                            <button type="submit" class="submit-button">Confirm Payment</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Existing code -->
+
             </div>
         </div>
     </div>

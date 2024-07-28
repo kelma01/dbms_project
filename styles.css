@@ -425,3 +425,37 @@ button {
 #seat-select {
     background-color: #f8f9fa;
 }
+/* Existing code */
+
+/* Credit Card Modal */
+#credit-card-modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#credit-card-modal .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+#credit-card-modal .modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Existing code */
