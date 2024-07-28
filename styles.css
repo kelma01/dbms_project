@@ -351,3 +351,77 @@ button {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
+#ticket-purchase-form {
+    margin-top: 20px;
+}
+
+#ticket-purchase-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+#ticket-purchase-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Satın Al Butonu */
+#confirm-purchase-button, #purchase-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+}
+
+#confirm-purchase-button:hover, #purchase-button:hover {
+    background-color: #218838;
+}
+
+#confirm-purchase-button:active, #purchase-button:active {
+    background-color: #1e7e34;
+}
+
+/* Bilet Satın Al Formu İçin */
+#ticket-purchase-form select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Şehir Seçimi */
+#city-select {
+    background-color: #f8f9fa;
+}
+
+/* Sinema Seçimi */
+#cinema-select {
+    background-color: #f8f9fa;
+}
+
+/* Salon Seçimi */
+#theater-select {
+    background-color: #f8f9fa;
+}
+
+/* Seans Seçimi */
+#showtime-select {
+    background-color: #f8f9fa;
+}
+
+/* Koltuk Seçimi */
+#seat-select {
+    background-color: #f8f9fa;
+}
