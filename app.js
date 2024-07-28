@@ -485,6 +485,21 @@ confirmPurchaseButton.addEventListener('click', async () => {
     } catch (error) {
         console.error('Error:', error);
     }
+
+    const seatPayload = {
+        "is_empty": 0
+    }
+    try {
+        const response = await fetch(`http://localhost:3001/seats/${selectedSeat}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(seatPayload)
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
 });
 // Function to check if conditions are met
 function checkConditions() {
