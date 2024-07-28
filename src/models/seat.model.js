@@ -74,8 +74,29 @@ Seat.findById = (seat_id, result) => {
 
 Seat.updateById = (id, seat, result) => {
     sql.query(
-        "UPDATE seat SET is_empty = ?, row = ?, column = ?, cinema_id = ?, theater_id = ? WHERE seat_id = ?",
-        [seat.is_empty, seat.row, seat.column, seat.cinema_id, seat.theater_id, id],
+        "UPDATE seat SET is_empty = ?, seat_loc = ?, cinema_id = ?, theater_id = ? WHERE seat_id = ?",
+        [seat.is_empty, seat.seat_loc, seat.cinema_id, seat.theater_id, id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            result(null, { id: id, ...seat });
+        }
+    );
+};
+
+Seat.updateById = (id, seat, result) => {
+    sql.query(
+        "UPDATE seat SET is_empty = ? WHERE seat_id = ?",
+        [seat.is_empty, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
