@@ -105,7 +105,7 @@ const loadUserTickets = async () => {
                 <h2>${movie.name}</h2>
                 <p>Cinema: ${cinema.name}</p>
                 <p>Theater Number: ${theater.theater_no}</p>
-                <p>Seat Location: SEATLERİ GETİREMİYORUM NEDENİNİ ANLAMADIM</p>
+                <p>Seat Location: ${seat[0].seat_loc}</p>
                 <p>Day: ${ticket.day}</p>
                 <p>Time: ${ticket.showtime}</p>
             `;
