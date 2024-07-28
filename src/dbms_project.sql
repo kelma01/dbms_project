@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: dbms_project
+-- Host: 127.0.0.1    Database: dbms_project
 -- ------------------------------------------------------
 -- Server version	8.0.37
 
@@ -214,7 +214,7 @@ CREATE TABLE `seat` (
 
 LOCK TABLES `seat` WRITE;
 /*!40000 ALTER TABLE `seat` DISABLE KEYS */;
-INSERT INTO `seat` VALUES (1,1,1,1,'A1'),(2,1,1,1,'A2'),(3,1,1,1,'A3'),(4,1,1,1,'A4'),(5,1,1,1,'B1'),(6,1,1,1,'B2'),(7,1,1,1,'B3'),(8,1,1,1,'B4'),(9,1,1,1,'C1'),(10,1,1,1,'C2'),(11,1,1,1,'C3'),(12,1,1,1,'C4'),(13,1,1,1,'D1'),(14,1,1,1,'D2'),(15,1,1,1,'D3'),(16,1,1,1,'D4'),(17,1,2,1,'A1'),(18,1,2,1,'A2'),(19,1,2,1,'A3'),(20,1,2,1,'A4'),(21,1,2,1,'A5'),(22,1,2,1,'B1'),(23,1,2,1,'B2'),(24,1,2,1,'B3'),(25,1,2,1,'B4'),(26,1,2,1,'B5'),(27,1,2,1,'C1'),(28,1,2,1,'C2'),(29,1,2,1,'C3'),(30,1,2,1,'C4'),(31,1,2,1,'C5'),(32,1,2,1,'D1'),(33,1,2,1,'D2'),(34,1,2,1,'D3'),(35,1,2,1,'D4'),(36,1,2,1,'D5'),(37,1,3,2,'A1'),(38,1,3,2,'A2'),(39,1,3,2,'A3'),(40,1,3,2,'A4'),(41,1,3,2,'B1'),(42,1,3,2,'B2'),(43,1,3,2,'B3'),(44,1,3,2,'B4'),(45,1,3,2,'C1'),(46,1,3,2,'C2'),(47,1,3,2,'C3'),(48,1,3,2,'C4'),(49,1,3,2,'D1'),(50,1,3,2,'D2'),(51,1,3,2,'D3'),(52,1,3,2,'D4'),(53,1,4,2,'A1'),(54,1,4,2,'A2'),(55,1,4,2,'A3'),(56,1,4,2,'A4'),(57,1,4,2,'A5'),(58,1,4,2,'B1'),(59,1,4,2,'B2'),(60,1,4,2,'B3'),(61,1,4,2,'B4'),(62,1,4,2,'B5'),(63,1,4,2,'C1'),(64,1,4,2,'C2'),(65,1,4,2,'C3'),(66,1,4,2,'C4'),(67,1,4,2,'C5'),(68,1,4,2,'D1'),(69,1,4,2,'D2'),(70,1,4,2,'D3'),(71,1,4,2,'D4'),(72,1,4,2,'D5');
+INSERT INTO `seat` VALUES (1,0,1,1,'A1'),(2,1,1,1,'A2'),(3,1,1,1,'A3'),(4,1,1,1,'A4'),(5,1,1,1,'B1'),(6,1,1,1,'B2'),(7,1,1,1,'B3'),(8,0,1,1,'B4'),(9,1,1,1,'C1'),(10,1,1,1,'C2'),(11,1,1,1,'C3'),(12,1,1,1,'C4'),(13,1,1,1,'D1'),(14,1,1,1,'D2'),(15,1,1,1,'D3'),(16,1,1,1,'D4'),(17,1,2,1,'A1'),(18,1,2,1,'A2'),(19,1,2,1,'A3'),(20,1,2,1,'A4'),(21,1,2,1,'A5'),(22,1,2,1,'B1'),(23,1,2,1,'B2'),(24,1,2,1,'B3'),(25,1,2,1,'B4'),(26,1,2,1,'B5'),(27,1,2,1,'C1'),(28,1,2,1,'C2'),(29,1,2,1,'C3'),(30,1,2,1,'C4'),(31,1,2,1,'C5'),(32,1,2,1,'D1'),(33,1,2,1,'D2'),(34,1,2,1,'D3'),(35,1,2,1,'D4'),(36,1,2,1,'D5'),(37,1,3,2,'A1'),(38,1,3,2,'A2'),(39,1,3,2,'A3'),(40,1,3,2,'A4'),(41,1,3,2,'B1'),(42,1,3,2,'B2'),(43,1,3,2,'B3'),(44,1,3,2,'B4'),(45,1,3,2,'C1'),(46,1,3,2,'C2'),(47,1,3,2,'C3'),(48,1,3,2,'C4'),(49,1,3,2,'D1'),(50,1,3,2,'D2'),(51,1,3,2,'D3'),(52,1,3,2,'D4'),(53,1,4,2,'A1'),(54,1,4,2,'A2'),(55,1,4,2,'A3'),(56,1,4,2,'A4'),(57,1,4,2,'A5'),(58,1,4,2,'B1'),(59,1,4,2,'B2'),(60,1,4,2,'B3'),(61,1,4,2,'B4'),(62,1,4,2,'B5'),(63,1,4,2,'C1'),(64,1,4,2,'C2'),(65,1,4,2,'C3'),(66,1,4,2,'C4'),(67,1,4,2,'C5'),(68,1,4,2,'D1'),(69,1,4,2,'D2'),(70,1,4,2,'D3'),(71,1,4,2,'D4'),(72,1,4,2,'D5');
 /*!40000 ALTER TABLE `seat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +304,7 @@ CREATE TABLE `ticket` (
   CONSTRAINT `ticket_seat_id` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
   CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
   CONSTRAINT `ticket_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,6 +313,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+INSERT INTO `ticket` VALUES (1,'Monday','13:00',1,1,1,1,21),(2,'Monday','13:00',1,1,1,1,22),(3,'Wednesday','10:00',1,1,8,18,21),(4,'Monday','13:00',1,1,3,1,21),(5,'10:00','Friday',1,1,16,5,21);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +334,7 @@ CREATE TABLE `user` (
   `tickets` varchar(45) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +343,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (21,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,'1111-11-11',NULL,'kelma@etu.edu.tr'),(22,'aa','aa','961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506',NULL,'1111-11-11',NULL,'aakelma@etu.edu.tr'),(23,'testname','testsurname','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',NULL,'1111-11-11',NULL,'test@test.tr'),(24,'memet','eskş','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,'2024-07-12',NULL,'meski@sdds.com');
+INSERT INTO `user` VALUES (21,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,'1111-11-11',NULL,'kelma@etu.edu.tr'),(22,'aa','aa','961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506',NULL,'1111-11-11',NULL,'aakelma@etu.edu.tr'),(23,'Mehmet','Eski','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',NULL,'2024-07-20',NULL,'mehmeteski_40@hotmail.com');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +373,7 @@ CREATE TABLE `wallet` (
 
 LOCK TABLES `wallet` WRITE;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
-INSERT INTO `wallet` VALUES (NULL,'0',NULL,'21',NULL,21),(NULL,'0',NULL,'22',NULL,22),(NULL,'0',NULL,'23',NULL,23),(NULL,'0',NULL,'24',NULL,24);
+INSERT INTO `wallet` VALUES (NULL,'0',NULL,'21',NULL,21),(NULL,'0',NULL,'22',NULL,22),(NULL,'0',NULL,'23',NULL,23);
 /*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -385,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-28 21:20:19
+-- Dump completed on 2024-07-28 22:48:07
