@@ -10,6 +10,21 @@ const User = function(user) {
   this.tickets = user.tickets;
 };
 
+User.findById = (UserId, result) => {
+  sql.query("SELECT * FROM user WHERE user_id = ?", UserId, (err, res) => {
+      if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+      }
+      if (res.length) {
+          result(null, res[0]);
+      } else {
+          result({ kind: "not_found" }, null);
+      }
+  });
+};
+
 // Kullanıcı oluşturma
 User.create = (newUser, result) => {
   sql.query("INSERT INTO user SET ?", newUser, (err, res) => {

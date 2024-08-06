@@ -5,6 +5,7 @@ module.exports = app => {
     app.post('/register', users.register);
     app.post('/login', users.login);
     app.get('/users', users.findAll);
+    app.get('/users/:user_id', users.findById);
     app.put('/profile', users.updateProfile);
     
     app.post('/logout', (req, res) => {
