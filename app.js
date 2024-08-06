@@ -123,6 +123,7 @@ const loadUserTickets = async () => {
                 <p>Seat Location: ${seat[0].seat_loc}</p>
                 <p>Day: ${ticket.day}</p>
                 <p>Time: ${ticket.showtime}</p>
+                <button class="cancel-button" data-ticket-id="${ticket.ticket_id}">Bileti İptal Et</button>
             `;
             ticketsContainer.appendChild(ticketElement);
         });
@@ -131,6 +132,30 @@ const loadUserTickets = async () => {
         ticketsContainer.textContent = 'Failed to fetch tickets';
     }
 };
+
+ticketsContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('cancel-button')) {
+        const ticketId = event.target.getAttribute('data-ticket-id');
+        cancelTicket(ticketId);
+    }
+});
+
+const cancelTicket = async (ticketId) => {
+    try {
+        const response = await fetch(`http://localhost:3001/tickets/${ticketId}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        //alert('Bilet başarıyla iptal edildi.');
+        loadUserTickets(); // Biletleri yeniden yükle
+    } catch (error) {
+        console.error('Failed to cancel ticket:', error);
+        //alert('Bilet iptal edilemedi.');
+    }
+};
+
 
 // Modal kapatma
 Array.from(closeModalElements).forEach(close => {

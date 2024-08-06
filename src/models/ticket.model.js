@@ -125,4 +125,49 @@ Ticket.remove = (id, result) => {
     });
 };
 
+//TO-DO: SEATLER DÜLZETİLDİKTEN SONRA BURASI EKLENECEK, TICKET SİLİNİNCE SEAT'IN IS_EMPTY = TRUE OLMASI GEREK BU KOD ONU YAPIOR
+/*Ticket.remove = (id, result) => {
+    // İlk olarak, iptal edilen bileti veritabanından kaldır
+    sql.query("SELECT seat_id FROM ticket WHERE ticket_id = ?", id, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.length === 0) {
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        const seatId = res[0].seat_id;
+
+        // Bileti sil
+        sql.query("DELETE FROM ticket WHERE ticket_id = ?", id, (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            // Koltuk durumunu güncelle
+            const Seat = require('./seat.model'); // seat.model.js dosyasını içe aktar
+            Seat.updateById(seatId, { is_empty: true }, (err, res) => {
+                if (err) {
+                    console.log("error: ", err);
+                    result(null, err);
+                    return;
+                }
+
+                result(null, res);
+            });
+        });
+    });
+};*/
+
 module.exports = Ticket;

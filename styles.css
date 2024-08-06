@@ -458,4 +458,25 @@ button {
     color: #333;
 }
 
-/* Existing code */
+.cancel-button {
+    background-color: #808080; /* Kırmızı arka plan rengi */
+    color: #ffffff; /* Beyaz yazı rengi */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px; /* Butonun üst kısmına boşluk bırakma */
+}
+
+.cancel-button:hover {
+    background-color: #c82333; /* Hover efekti için daha koyu kırmızı */
+    transform: scale(1.05); /* Hover efekti için büyütme */
+}
+
+.cancel-button:active {
+    background-color: #bd2130; /* Tıklama efekti için daha koyu kırmızı */
+    transform: scale(1.02); /* Tıklama efekti için küçültme */
+}
