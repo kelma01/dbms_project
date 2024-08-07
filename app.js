@@ -41,6 +41,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const ticketPurchaseForm = document.getElementById("ticket-purchase-form");
         ticketPurchaseForm.style.display = ticketPurchaseForm.style.display === "none" ? "block" : "none";
     });
+    const movieButtons = document.querySelectorAll('.movie-btn');
+    const purchaseButton = document.getElementById('purchase-button');
+    const citySelect = document.getElementById('city-select');
+    const cinemaSelect = document.getElementById('cinema-select');
+    const theaterSelect = document.getElementById('theater-select');
+    const showtimeSelect = document.getElementById('showtime-select');
+    const seatSelect = document.getElementById('seat-select');
+    const movieModal = document.getElementById('movie-modal');
+    const ticketPurchaseForm = document.getElementById('ticket-purchase-form');
+    const moviePoster = document.getElementById('movie-poster');
+    const movieTitle = document.getElementById('movie-title');
+    const movieDescription = document.getElementById('movie-description');
+    const movieDuration = document.getElementById('movie-duration');
+    const movieRate = document.getElementById('movie-rate');
+    const movieGenre = document.getElementById('movie-genre');
 });
 
 
@@ -407,6 +422,7 @@ async function showMovieDetails(movie) {
     const purchaseButton = document.getElementById('purchase-button');
     const citySelect = document.getElementById('city-select');
     const cinemaSelect = document.getElementById('cinema-select');
+    const theaterSelect = document.getElementById('theater-select');
     const showtimeSelect = document.getElementById('showtime-select');
     const seatSelect = document.getElementById('seat-select');
 
@@ -426,11 +442,18 @@ async function showMovieDetails(movie) {
     // Save movie ID for later use
     movieModal.dataset.movieId = movie.movie_id;
 
+    // Clear previous selections
+    citySelect.innerHTML = '<option value="">Seçiniz</option>';
+    cinemaSelect.innerHTML = '<option value="">Seçiniz</option>';
+    theaterSelect.innerHTML = '<option value="">Seçiniz</option>';
+    showtimeSelect.innerHTML = '<option value="">Seçiniz</option>';
+    seatSelect.innerHTML = '<option value="">Seçiniz</option>';
+
     try {
         const cinemasResponse = await fetch('http://localhost:3001/cinemas');
         const cinemas = await cinemasResponse.json();
         const cityOptions = [...new Set(cinemas.map(cinema => cinema.city))];
-        citySelect.innerHTML = '<option value=""></option>';
+        citySelect.innerHTML = '<option value="">Seçiniz</option>';
         cityOptions.forEach(city => {
             const option = document.createElement('option');
             option.value = city;
@@ -443,7 +466,7 @@ async function showMovieDetails(movie) {
             if (!selectedCity) return;
 
             const filteredCinemas = cinemas.filter(cinema => cinema.city === selectedCity);
-            cinemaSelect.innerHTML = '<option value=""></option>';
+            cinemaSelect.innerHTML = '<option value="">Seçiniz</option>';
             filteredCinemas.forEach(cinema => {
                 const option = document.createElement('option');
                 option.value = cinema.cinema_id;
