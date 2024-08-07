@@ -21,10 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(data => {
         // Form alanlarını güncelle
+        // Form alanlarını güncelle
+        const birthDate = new Date(data.birth_date);
+        const year = birthDate.getFullYear();
+        const month = String(birthDate.getMonth() + 1).padStart(2, '0'); // Ayı 2 basamaklı yap
+        const day = String(birthDate.getDate()).padStart(2, '0'); // Günü 2 basamaklı yap
+        const formattedDate = `${year}-${month}-${day}`;
+        
         document.getElementById('name').value = data.name;
         document.getElementById('surname').value = data.surname;
         document.getElementById('email').value = data.email;
-        document.getElementById('birth-date').value = data.birth_date;
+        document.getElementById('birth-date').value = formattedDate;
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
