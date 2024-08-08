@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: dbms_project
+-- Host: localhost    Database: dbms_project
 -- ------------------------------------------------------
 -- Server version	8.0.37
 
@@ -214,7 +214,7 @@ CREATE TABLE `seat` (
 
 LOCK TABLES `seat` WRITE;
 /*!40000 ALTER TABLE `seat` DISABLE KEYS */;
-INSERT INTO `seat` VALUES (1,0,1,1,'A1'),(2,1,1,1,'A2'),(3,1,1,1,'A3'),(4,1,1,1,'A4'),(5,1,1,1,'B1'),(6,1,1,1,'B2'),(7,1,1,1,'B3'),(8,0,1,1,'B4'),(9,1,1,1,'C1'),(10,1,1,1,'C2'),(11,1,1,1,'C3'),(12,1,1,1,'C4'),(13,1,1,1,'D1'),(14,1,1,1,'D2'),(15,1,1,1,'D3'),(16,1,1,1,'D4'),(17,1,2,1,'A1'),(18,1,2,1,'A2'),(19,1,2,1,'A3'),(20,1,2,1,'A4'),(21,1,2,1,'A5'),(22,1,2,1,'B1'),(23,1,2,1,'B2'),(24,1,2,1,'B3'),(25,1,2,1,'B4'),(26,1,2,1,'B5'),(27,1,2,1,'C1'),(28,1,2,1,'C2'),(29,1,2,1,'C3'),(30,1,2,1,'C4'),(31,1,2,1,'C5'),(32,1,2,1,'D1'),(33,1,2,1,'D2'),(34,1,2,1,'D3'),(35,1,2,1,'D4'),(36,1,2,1,'D5'),(37,1,3,2,'A1'),(38,1,3,2,'A2'),(39,1,3,2,'A3'),(40,1,3,2,'A4'),(41,1,3,2,'B1'),(42,1,3,2,'B2'),(43,1,3,2,'B3'),(44,1,3,2,'B4'),(45,1,3,2,'C1'),(46,1,3,2,'C2'),(47,1,3,2,'C3'),(48,1,3,2,'C4'),(49,1,3,2,'D1'),(50,1,3,2,'D2'),(51,1,3,2,'D3'),(52,1,3,2,'D4'),(53,1,4,2,'A1'),(54,1,4,2,'A2'),(55,1,4,2,'A3'),(56,1,4,2,'A4'),(57,1,4,2,'A5'),(58,1,4,2,'B1'),(59,1,4,2,'B2'),(60,1,4,2,'B3'),(61,1,4,2,'B4'),(62,1,4,2,'B5'),(63,1,4,2,'C1'),(64,1,4,2,'C2'),(65,1,4,2,'C3'),(66,1,4,2,'C4'),(67,1,4,2,'C5'),(68,1,4,2,'D1'),(69,1,4,2,'D2'),(70,1,4,2,'D3'),(71,1,4,2,'D4'),(72,1,4,2,'D5');
+INSERT INTO `seat` VALUES (1,1,1,1,'A1'),(2,1,1,1,'A2'),(3,1,1,1,'A3'),(4,1,1,1,'A4'),(5,1,1,1,'B1'),(6,0,1,1,'B2'),(7,1,1,1,'B3'),(8,1,1,1,'B4'),(9,0,1,1,'C1'),(10,1,1,1,'C2'),(11,1,1,1,'C3'),(12,0,1,1,'C4'),(13,1,1,1,'D1'),(14,1,1,1,'D2'),(15,0,1,1,'D3'),(16,1,1,1,'D4'),(17,1,2,1,'A1'),(18,1,2,1,'A2'),(19,1,2,1,'A3'),(20,1,2,1,'A4'),(21,1,2,1,'A5'),(22,1,2,1,'B1'),(23,1,2,1,'B2'),(24,1,2,1,'B3'),(25,1,2,1,'B4'),(26,1,2,1,'B5'),(27,1,2,1,'C1'),(28,1,2,1,'C2'),(29,1,2,1,'C3'),(30,1,2,1,'C4'),(31,1,2,1,'C5'),(32,1,2,1,'D1'),(33,1,2,1,'D2'),(34,1,2,1,'D3'),(35,1,2,1,'D4'),(36,1,2,1,'D5'),(37,1,3,2,'A1'),(38,1,3,2,'A2'),(39,1,3,2,'A3'),(40,1,3,2,'A4'),(41,1,3,2,'B1'),(42,1,3,2,'B2'),(43,1,3,2,'B3'),(44,1,3,2,'B4'),(45,1,3,2,'C1'),(46,1,3,2,'C2'),(47,1,3,2,'C3'),(48,1,3,2,'C4'),(49,1,3,2,'D1'),(50,0,3,2,'D2'),(51,1,3,2,'D3'),(52,1,3,2,'D4'),(53,1,4,2,'A1'),(54,1,4,2,'A2'),(55,1,4,2,'A3'),(56,1,4,2,'A4'),(57,1,4,2,'A5'),(58,1,4,2,'B1'),(59,1,4,2,'B2'),(60,1,4,2,'B3'),(61,1,4,2,'B4'),(62,1,4,2,'B5'),(63,1,4,2,'C1'),(64,1,4,2,'C2'),(65,1,4,2,'C3'),(66,1,4,2,'C4'),(67,1,4,2,'C5'),(68,1,4,2,'D1'),(69,1,4,2,'D2'),(70,1,4,2,'D3'),(71,1,4,2,'D4'),(72,1,4,2,'D5'),(73,1,5,3,'A1'),(74,1,5,3,'A2'),(75,1,5,3,'A3'),(76,1,5,3,'A4'),(77,1,5,3,'B1'),(78,1,5,3,'B2'),(79,1,5,3,'B3'),(80,1,5,3,'B4'),(81,0,5,3,'C1'),(82,1,5,3,'C2'),(83,1,5,3,'C3'),(84,0,5,3,'C4'),(85,1,5,3,'D1'),(86,1,5,3,'D2'),(87,1,5,3,'D3'),(88,0,5,3,'D4');
 /*!40000 ALTER TABLE `seat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,7 +243,7 @@ CREATE TABLE `shows` (
 
 LOCK TABLES `shows` WRITE;
 /*!40000 ALTER TABLE `shows` DISABLE KEYS */;
-INSERT INTO `shows` VALUES (1,1,'13:00','Monday'),(1,1,'16:00','Monday'),(2,1,'10:00','Tuesday'),(3,1,'10:00','Monday'),(3,1,'19:00','Thursday'),(4,1,'10:00','Wednesday'),(5,1,'10:00','Friday'),(6,1,'10:00','Sunday'),(6,1,'19:00','Sunday'),(7,1,'10:00','Tuesday'),(8,1,'10:00','Thursday'),(9,1,'10:00','Saturday'),(9,1,'19:00','Wednesday'),(10,1,'10:00','Monday'),(11,1,'10:00','Wednesday'),(12,1,'10:00','Friday'),(12,1,'19:00','Saturday'),(13,1,'10:00','Sunday'),(14,1,'10:00','Tuesday'),(15,1,'10:00','Thursday'),(15,1,'19:00','Tuesday'),(16,1,'10:00','Saturday'),(17,1,'10:00','Monday'),(18,1,'10:00','Wednesday'),(18,1,'19:00','Friday'),(1,2,'13:00','Friday'),(2,2,'13:00','Wednesday'),(3,2,'13:00','Monday'),(3,2,'19:00','Thursday'),(4,2,'13:00','Wednesday'),(5,2,'13:00','Friday'),(6,2,'13:00','Sunday'),(6,2,'19:00','Sunday'),(7,2,'13:00','Tuesday'),(8,2,'13:00','Thursday'),(9,2,'13:00','Saturday'),(9,2,'19:00','Wednesday'),(10,2,'13:00','Monday'),(11,2,'13:00','Wednesday'),(12,2,'13:00','Friday'),(12,2,'19:00','Saturday'),(13,2,'13:00','Sunday'),(14,2,'13:00','Tuesday'),(15,2,'13:00','Thursday'),(15,2,'19:00','Tuesday'),(16,2,'13:00','Saturday'),(17,2,'13:00','Monday'),(18,2,'13:00','Wednesday'),(18,2,'19:00','Friday'),(1,3,'19:00','Tuesday'),(2,3,'10:00','Thursday'),(3,3,'16:00','Monday'),(4,3,'16:00','Wednesday'),(4,3,'19:00','Friday'),(5,3,'16:00','Friday'),(6,3,'16:00','Sunday'),(7,3,'16:00','Tuesday'),(7,3,'19:00','Monday'),(8,3,'16:00','Thursday'),(9,3,'16:00','Saturday'),(10,3,'16:00','Monday'),(10,3,'19:00','Thursday'),(11,3,'16:00','Wednesday'),(12,3,'16:00','Friday'),(13,3,'16:00','Sunday'),(13,3,'19:00','Sunday'),(14,3,'16:00','Tuesday'),(15,3,'16:00','Thursday'),(16,3,'16:00','Saturday'),(16,3,'19:00','Wednesday'),(17,3,'16:00','Monday'),(18,3,'16:00','Wednesday'),(1,4,'19:00','Tuesday'),(2,4,'13:00','Friday'),(3,4,'10:00','Tuesday'),(4,4,'10:00','Thursday'),(4,4,'19:00','Friday'),(5,4,'10:00','Saturday'),(6,4,'10:00','Monday'),(7,4,'10:00','Wednesday'),(7,4,'19:00','Monday'),(8,4,'10:00','Friday'),(9,4,'10:00','Sunday'),(10,4,'10:00','Tuesday'),(10,4,'19:00','Thursday'),(11,4,'10:00','Thursday'),(12,4,'10:00','Saturday'),(13,4,'10:00','Monday'),(13,4,'19:00','Sunday'),(14,4,'10:00','Wednesday'),(15,4,'10:00','Friday'),(16,4,'10:00','Sunday'),(16,4,'19:00','Wednesday'),(17,4,'10:00','Tuesday'),(18,4,'10:00','Thursday'),(1,5,'13:00','Monday'),(2,5,'16:00','Saturday'),(2,5,'19:00','Wednesday'),(3,5,'13:00','Tuesday'),(4,5,'13:00','Thursday'),(5,5,'13:00','Saturday'),(5,5,'19:00','Saturday'),(6,5,'13:00','Monday'),(7,5,'13:00','Wednesday'),(8,5,'13:00','Friday'),(8,5,'19:00','Tuesday'),(9,5,'13:00','Sunday'),(10,5,'13:00','Tuesday'),(11,5,'13:00','Thursday'),(11,5,'19:00','Friday'),(12,5,'13:00','Saturday'),(13,5,'13:00','Monday'),(14,5,'13:00','Wednesday'),(14,5,'19:00','Monday'),(15,5,'13:00','Friday'),(16,5,'13:00','Sunday'),(17,5,'13:00','Tuesday'),(17,5,'19:00','Thursday'),(18,5,'13:00','Thursday'),(1,6,'13:00','Monday'),(2,6,'19:00','Wednesday'),(5,6,'19:00','Saturday'),(8,6,'19:00','Tuesday'),(11,6,'19:00','Friday'),(14,6,'19:00','Monday'),(17,6,'19:00','Thursday'),(18,6,'16:00','Thursday');
+INSERT INTO `shows` VALUES (1,1,'13:00','Monday'),(1,1,'16:00','Monday'),(2,1,'10:00','Tuesday'),(3,1,'10:00','Monday'),(3,1,'19:00','Thursday'),(4,1,'10:00','Wednesday'),(5,1,'10:00','Friday'),(6,1,'10:00','Sunday'),(6,1,'19:00','Sunday'),(7,1,'10:00','Tuesday'),(8,1,'10:00','Thursday'),(9,1,'10:00','Saturday'),(9,1,'19:00','Wednesday'),(10,1,'10:00','Monday'),(11,1,'10:00','Wednesday'),(12,1,'10:00','Friday'),(12,1,'19:00','Saturday'),(13,1,'10:00','Sunday'),(14,1,'10:00','Tuesday'),(15,1,'10:00','Thursday'),(15,1,'19:00','Tuesday'),(16,1,'10:00','Saturday'),(17,1,'10:00','Monday'),(18,1,'10:00','Wednesday'),(18,1,'19:00','Friday'),(1,2,'13:00','Friday'),(2,2,'13:00','Wednesday'),(3,2,'13:00','Monday'),(3,2,'19:00','Thursday'),(4,2,'13:00','Wednesday'),(5,2,'13:00','Friday'),(6,2,'13:00','Sunday'),(6,2,'19:00','Sunday'),(7,2,'13:00','Tuesday'),(8,2,'13:00','Thursday'),(9,2,'13:00','Saturday'),(9,2,'19:00','Wednesday'),(10,2,'13:00','Monday'),(11,2,'13:00','Wednesday'),(12,2,'13:00','Friday'),(12,2,'19:00','Saturday'),(13,2,'13:00','Sunday'),(14,2,'13:00','Tuesday'),(15,2,'13:00','Thursday'),(15,2,'19:00','Tuesday'),(16,2,'13:00','Saturday'),(17,2,'13:00','Monday'),(18,2,'13:00','Wednesday'),(18,2,'19:00','Friday'),(1,3,'19:00','Tuesday'),(2,3,'10:00','Thursday'),(3,3,'16:00','Monday'),(4,3,'16:00','Wednesday'),(4,3,'19:00','Friday'),(5,3,'16:00','Friday'),(6,3,'16:00','Sunday'),(7,3,'16:00','Tuesday'),(7,3,'19:00','Monday'),(8,3,'16:00','Thursday'),(9,3,'16:00','Saturday'),(10,3,'16:00','Monday'),(10,3,'19:00','Thursday'),(11,3,'16:00','Wednesday'),(12,3,'16:00','Friday'),(13,3,'16:00','Sunday'),(13,3,'19:00','Sunday'),(14,3,'16:00','Tuesday'),(15,3,'16:00','Thursday'),(16,3,'16:00','Saturday'),(16,3,'19:00','Wednesday'),(17,3,'16:00','Monday'),(18,3,'16:00','Wednesday'),(1,4,'19:00','Tuesday'),(2,4,'13:00','Friday'),(3,4,'10:00','Tuesday'),(4,4,'10:00','Thursday'),(4,4,'19:00','Friday'),(5,4,'10:00','Saturday'),(6,4,'10:00','Monday'),(7,4,'10:00','Wednesday'),(7,4,'19:00','Monday'),(8,4,'10:00','Friday'),(9,4,'10:00','Sunday'),(10,4,'10:00','Tuesday'),(10,4,'19:00','Thursday'),(11,4,'10:00','Thursday'),(12,4,'10:00','Saturday'),(13,4,'10:00','Monday'),(13,4,'19:00','Sunday'),(14,4,'10:00','Wednesday'),(15,4,'10:00','Friday'),(16,4,'10:00','Sunday'),(16,4,'19:00','Wednesday'),(17,4,'10:00','Tuesday'),(18,4,'10:00','Thursday'),(1,5,'13:00','Monday'),(2,5,'16:00','Saturday'),(2,5,'19:00','Wednesday'),(3,5,'13:00','Tuesday'),(4,5,'13:00','Thursday'),(5,5,'13:00','Saturday'),(5,5,'19:00','Saturday'),(6,5,'13:00','Monday'),(7,5,'13:00','Wednesday'),(8,5,'13:00','Friday'),(8,5,'19:00','Tuesday'),(9,5,'13:00','Sunday'),(10,5,'13:00','Tuesday'),(11,5,'13:00','Thursday'),(11,5,'19:00','Friday'),(12,5,'13:00','Saturday'),(13,5,'13:00','Monday'),(14,5,'13:00','Wednesday'),(14,5,'19:00','Monday'),(15,5,'13:00','Friday'),(16,5,'13:00','Sunday'),(17,5,'13:00','Tuesday'),(17,5,'19:00','Thursday'),(18,5,'13:00','Thursday');
 /*!40000 ALTER TABLE `shows` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `theater` (
 
 LOCK TABLES `theater` WRITE;
 /*!40000 ALTER TABLE `theater` DISABLE KEYS */;
-INSERT INTO `theater` VALUES (1,16,'A1-D4',1,1),(2,20,'A1-D5',1,2),(3,16,'A1-D4',2,1),(4,20,'A1-D5',2,2),(5,16,'A1-D4',3,1),(6,20,'A1-D5',3,2);
+INSERT INTO `theater` VALUES (1,16,'A1-D4',1,1),(2,20,'A1-D5',1,2),(3,16,'A1-D4',2,1),(4,20,'A1-D5',2,2),(5,16,'A1-D4',3,1);
 /*!40000 ALTER TABLE `theater` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +304,7 @@ CREATE TABLE `ticket` (
   CONSTRAINT `ticket_seat_id` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
   CONSTRAINT `ticket_theater_id` FOREIGN KEY (`theater_id`) REFERENCES `theater` (`theater_id`),
   CONSTRAINT `ticket_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +313,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,'Monday','13:00',1,1,1,1,21),(2,'Monday','13:00',1,1,1,1,22),(3,'Wednesday','10:00',1,1,8,18,21),(4,'Monday','13:00',1,1,3,1,21),(5,'10:00','Friday',1,1,16,5,21);
+INSERT INTO `ticket` VALUES (29,'13:00','Monday',3,5,84,6,21),(30,'13:00','Tuesday',3,5,88,10,21);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,7 +334,7 @@ CREATE TABLE `user` (
   `tickets` varchar(45) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,7 +343,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (21,'kerem','elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,'1111-11-11',NULL,'kelma@etu.edu.tr'),(22,'aa','aa','961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506',NULL,'1111-11-11',NULL,'aakelma@etu.edu.tr'),(23,'Mehmet','Eski','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',NULL,'2024-07-20',NULL,'mehmeteski_40@hotmail.com');
+INSERT INTO `user` VALUES (21,'Kerem','Elma','5bce75718cb1b41ede99f842c559467c8e987ec2883515b5905f9587b4328b62',NULL,'2003-01-12',NULL,'kelma@etu.edu.tr'),(22,'aa','aa','961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506',NULL,'1111-11-11',NULL,'aakelma@etu.edu.tr'),(23,'testname','testsurname','9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',NULL,'1111-11-11',NULL,'test@test.tr'),(24,'memet','eskş','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',NULL,'2024-07-12',NULL,'meski@sdds.com');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +373,7 @@ CREATE TABLE `wallet` (
 
 LOCK TABLES `wallet` WRITE;
 /*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
-INSERT INTO `wallet` VALUES (NULL,'0',NULL,'21',NULL,21),(NULL,'0',NULL,'22',NULL,22),(NULL,'0',NULL,'23',NULL,23);
+INSERT INTO `wallet` VALUES (NULL,'0',NULL,'21',NULL,21),(NULL,'0',NULL,'22',NULL,22),(NULL,'0',NULL,'23',NULL,23),(NULL,'0',NULL,'24',NULL,24);
 /*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -386,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-28 22:48:07
+-- Dump completed on 2024-08-08 10:33:06
