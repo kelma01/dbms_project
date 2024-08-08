@@ -41,6 +41,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const ticketPurchaseForm = document.getElementById("ticket-purchase-form");
         ticketPurchaseForm.style.display = ticketPurchaseForm.style.display === "none" ? "block" : "none";
     });
+    document.getElementById("seat-select").addEventListener("click", function () {
+        if (!localStorage.getItem('userId')) {
+            alert('Lütfen giriş yapınız.');
+            return;
+        }
+        const ticketPurchaseForm = document.getElementById("koltuk-arkaplan");
+        ticketPurchaseForm.style.display = ticketPurchaseForm.style.display === "none" ? "block" : "none";
+    });
     const movieButtons = document.querySelectorAll('.movie-btn');
     const purchaseButton = document.getElementById('purchase-button');
     const citySelect = document.getElementById('city-select');
