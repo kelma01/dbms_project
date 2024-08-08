@@ -32,6 +32,17 @@ Ticket.getAll = (result) => {
     });
 };
 
+Ticket.findByTicketId = (ticketId, result) => {
+    sql.query("SELECT * FROM ticket WHERE ticket_id = ?", ticketId, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+};
+
 Ticket.findByUserId = (userId, result) => {
     sql.query("SELECT * FROM ticket WHERE user_id = ?", userId, (err, res) => {
         if (err) {

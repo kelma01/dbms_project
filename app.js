@@ -156,6 +156,33 @@ ticketsContainer.addEventListener('click', (event) => {
 });
 
 const cancelTicket = async (ticketId) => {
+    seatId = -1;
+    try{
+        const ticketRes = await fetch(`http://localhost:3001/tickets/${ticketId}`);
+        const ticket = await ticketRes.json();
+        seatId = ticket[0].seat_id;
+    }catch(error){
+        alert(error);
+    }   
+
+    try {
+        const seatUpdateRes = await fetch(`http://localhost:3001/seats/${seatId}`, {
+            method: 'PUT', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                is_empty: 1,
+            }),
+        });
+
+        if (!seatUpdateRes.ok) {
+            throw new Error(`HTTP error! status: ${seatUpdateRes.status}`);
+        }
+    } catch (error) {
+        console.error('Failed to update seat status:', error);
+    }
+
     try {
         const response = await fetch(`http://localhost:3001/tickets/${ticketId}`, {
             method: 'DELETE'
@@ -163,11 +190,9 @@ const cancelTicket = async (ticketId) => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        //alert('Bilet başarıyla iptal edildi.');
-        loadUserTickets(); // Biletleri yeniden yükle
+        loadUserTickets();
     } catch (error) {
         console.error('Failed to cancel ticket:', error);
-        //alert('Bilet iptal edilemedi.');
     }
 };
 

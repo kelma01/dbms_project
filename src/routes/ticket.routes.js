@@ -4,6 +4,7 @@ module.exports = app => {
     app.post('/tickets', tickets.create);
 
     app.get('/tickets', tickets.findAll);
+    app.get('/tickets/:ticket_id', tickets.findByTicketId);
     app.get('/tickets/user/:user_id', tickets.findByUserId);
     app.get('/tickets/movie/:movie_id', tickets.findByMovieId);
     app.get('/tickets/cinema/:cinema_id', tickets.findByCinemaId);

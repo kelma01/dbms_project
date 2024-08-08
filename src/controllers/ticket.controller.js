@@ -37,6 +37,16 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findByTicketId = (req, res) => {
+    Ticket.findByTicketId(req.params.ticket_id, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: "Error retrieving ticket for id: " + req.params.user_id
+            });
+        } else res.send(data);
+    });
+};
+
 exports.findByUserId = (req, res) => {
     Ticket.findByUserId(req.params.user_id, (err, data) => {
         if (err) {
