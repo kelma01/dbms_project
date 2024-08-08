@@ -408,6 +408,30 @@ async function handleShowtimeChange() {
 
 document.getElementById('showtime-select').addEventListener('change', handleShowtimeChange);
 
+const youtubeApiKey = 'AIzaSyDwcPcVdfNTKznTVoZpWzU7xWHqVLI1SyI';
+
+// YouTube API'den fragmanı al
+const getMovieTrailerFromYouTube = async (movieTitle) => {
+    try {
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${movieTitle} official trailer&type=video&key=${youtubeApiKey}`);
+        const data = await response.json();
+        if (data.items && data.items.length > 0) {
+            // İlk uygun sonucun fragman olduğunu doğrula
+            for (let item of data.items) {
+                if (item.snippet.title.toLowerCase().includes("trailer") && item.snippet.title.toLowerCase().includes(movieTitle.toLowerCase())) {
+                    return `https://www.youtube.com/embed/${item.id.videoId}`;
+                }
+            }
+            // Eğer uygun sonuç bulunamazsa, ilk sonucu döndür
+            return `https://www.youtube.com/embed/${data.items[0].id.videoId}`;
+        }
+        return null;
+    } catch (error) {
+        console.error('Error fetching trailer from YouTube:', error);
+        return null;
+    }
+};
+
 
 
 async function showMovieDetails(movie) {
@@ -425,6 +449,16 @@ async function showMovieDetails(movie) {
     const theaterSelect = document.getElementById('theater-select');
     const showtimeSelect = document.getElementById('showtime-select');
     const seatSelect = document.getElementById('seat-select');
+    const trailerContainer = document.getElementById('trailer-container');
+
+    const trailerUrl = await getMovieTrailerFromYouTube(movie.name);
+
+    // Fragmanı göster
+    if (trailerUrl) {
+        trailerContainer.innerHTML = `<iframe width="320" height="180" src="${trailerUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    } else {
+        trailerContainer.innerHTML = 'Fragman bulunamadı.';
+    }
 
     // Set movie details
     ticketPurchaseForm.style.display = 'none';
@@ -484,7 +518,6 @@ async function showMovieDetails(movie) {
         console.error('Failed to fetch cinemas:', error);
     }
 }
-
 
 confirmPurchaseButton.addEventListener('click', async () => {
     confirmPurchaseButton.style.display = 'block';
