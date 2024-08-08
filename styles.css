@@ -503,7 +503,7 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 40vh;
+  height: 35vh;
   overflow: hidden;
   
 }
@@ -522,7 +522,6 @@ button {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  
 }
 
 .container {
@@ -537,6 +536,7 @@ button {
   margin: 3px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  
 }
 
 .seat.selected {
@@ -573,7 +573,8 @@ button {
   color: #bdb8b8;
   list-style-type:none;
   display: flex;
-  justify-content:space-between; 
+  justify-content: center;
+  
 }
 
 .showcase li {
@@ -589,16 +590,18 @@ button {
 
 .row {
   display: flex;
+  justify-content: center;
 }
 
 .screen {
     background-color: #fff;
     height: 70px;
-    width: 100%;
+    width: 150px;
     margin: 15px 0;
     transform: rotateX(-45deg);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
-  
+    box-shadow: 0 7px 10px rgba(255, 255, 255, 0.7);
+    justify-content: center;
+    margin: auto;
 }
 
 p.text {
