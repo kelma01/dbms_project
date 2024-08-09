@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Lütfen giriş yapınız.');
             return;
         }
-        const ticketPurchaseForm = document.getElementById("koltuk-arkaplan");
-        ticketPurchaseForm.style.display = ticketPurchaseForm.style.display === "none" ? "block" : "none";
+        const koltukArkaplan = document.getElementById("koltuk-arkaplan");
+        koltukArkaplan.style.display = koltukArkaplan.style.display === "none" ? "block" : "none";
     });
     const movieButtons = document.querySelectorAll('.movie-btn');
     const purchaseButton = document.getElementById('purchase-button');
@@ -315,6 +315,8 @@ document.getElementById('city-select').addEventListener('change', async function
     if (!selectedCity) return;
     await getCinemasForCity(selectedCity); // Sinemaları getir
     document.getElementById('showtime-select').innerHTML = '<option value=""></option>'; // Seans seçimini temizle
+    document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove("selected"));
+    document.querySelectorAll('.seat.occupied').forEach(seat => seat.classList.remove("occupied"));
 });
 
 // Sinema seçimi sonrası theaterları getirme
@@ -323,6 +325,8 @@ document.getElementById('cinema-select').addEventListener('change', async functi
     if (!selectedCinemaId) return;
     await gettheatersForCinema(selectedCinemaId); // Theater'ları getirin
     showtimeSelect.innerHTML = '<option value=""></option>'; // Seans seçimini temizleyin
+    document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove("selected"));
+    document.querySelectorAll('.seat.occupied').forEach(seat => seat.classList.remove("occupied"));
 });
 
 // Theater seçimi sonrası seansları getirme, theater seçilmeyecek???
@@ -339,36 +343,86 @@ document.getElementById('showtime-select').addEventListener('change', function (
     const showDay = selectedShowtime[0];
     const showHour = selectedShowtime[1];
     const theaterId = document.getElementById('theater-select').value;
+    document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove("selected"));
+    document.querySelectorAll('.seat.occupied').forEach(seat => seat.classList.remove("occupied"));
 
     if (theaterId) {
         getSeatsForShowtime(theaterId);
     }
 });
 
+//async function getSeatsForShowtime(theaterId) {
+//    try {
+//        const response = await fetch(`http://localhost:3001/seats/theater/${theaterId}`);
+//        const seats = await response.json();
+//        
+//        if (!Array.isArray(seats)) {
+//            throw new Error('Invalid data format');
+//        }
+//
+//        const seatSelect = document.getElementById('seat-select');
+//        seatSelect.innerHTML = '<option value=""></option>';
+//
+//        seats.forEach(seat => {
+//            if (seat.is_empty) {
+//                const option = document.createElement('option');
+//                option.value = seat.seat_id;
+//                option.textContent = seat.seat_loc;
+//                seatSelect.appendChild(option);
+//            }
+//        });
+//    } catch (error) {
+//        console.error('Error fetching seats:', error);
+//    }
+//}
+
 async function getSeatsForShowtime(theaterId) {
     try {
         const response = await fetch(`http://localhost:3001/seats/theater/${theaterId}`);
         const seats = await response.json();
-        
+        const seatSelect = document.getElementById('seat-select');
+
         if (!Array.isArray(seats)) {
             throw new Error('Invalid data format');
         }
 
-        const seatSelect = document.getElementById('seat-select');
-        seatSelect.innerHTML = '<option value=""></option>';
-
         seats.forEach(seat => {
-            if (seat.is_empty) {
-                const option = document.createElement('option');
-                option.value = seat.seat_id;
-                option.textContent = seat.seat_loc;
-                seatSelect.appendChild(option);
+            const seatElement = document.querySelector(`.seat-container .seat[data-seat-loc="${seat.seat_loc}"]`);
+
+            if (seatElement) {
+                if (!seat.is_empty) {
+                    seatElement.classList.add("occupied");
+                } else {
+                    seatElement.classList.remove("occupied");
+                }
+
+                seatElement.addEventListener('click', function() {
+                    if (!seatElement.classList.contains("occupied")) {
+                        // Önceki seçili koltuğu kaldır
+                        document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove("selected"));
+                        seatSelect.innerHTML = ''; // Seçim listesini temizle
+
+                        // Yeni seçili koltuğu işaretle
+                        seatElement.classList.add("selected");
+
+                        // Yeni seçili koltuğu seatSelect'e ekle
+                        const option = document.createElement('option');
+                        option.value = seat.seat_id;
+                        option.textContent = seat.seat_loc;
+                        seatSelect.appendChild(option);
+                    }
+                });
             }
         });
+
+        // Koltuk arka planını göster
+        // document.getElementById('koltuk-arkaplan').style.display = 'block';
+
     } catch (error) {
         console.error('Error fetching seats:', error);
     }
 }
+
 
 
 async function getCinemasForCity(city) {
@@ -376,6 +430,8 @@ async function getCinemasForCity(city) {
         const response = await fetch(`http://localhost:3001/cities/${city}/cinemas`);
         const cinemas = await response.json();
         const cinemaSelect = document.getElementById('cinema-select');
+        document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove("selected"));
+        document.querySelectorAll('.seat.occupied').forEach(seat => seat.classList.remove("occupied"));
         cinemaSelect.innerHTML = '<option value=""></option>';
         cinemas.forEach(cinema => {
             const cinemaOption = document.createElement('option');
@@ -392,6 +448,8 @@ async function gettheatersForCinema(cinemaId) {
         const response = await fetch(`http://localhost:3001/cinemas/${cinemaId}/theaters`);
         const theaters = await response.json();
         const theaterSelect = document.getElementById('theater-select');
+        document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove("selected"));
+        document.querySelectorAll('.seat.occupied').forEach(seat => seat.classList.remove("occupied"));
         theaterSelect.innerHTML = '<option value=""></option>';
         theaters.forEach(theater => {
             const theaterOption = document.createElement('option');
@@ -465,8 +523,6 @@ const getMovieTrailerFromYouTube = async (movieTitle) => {
     }
 };
 
-
-
 async function showMovieDetails(movie) {
     const movieTitle = document.getElementById('movie-title');
     const movieDescription = document.getElementById('movie-description');
@@ -506,15 +562,18 @@ async function showMovieDetails(movie) {
     moviePoster.alt = movie.name;
     movieModal.style.display = 'block';
 
-    // Save movie ID for later use
     movieModal.dataset.movieId = movie.movie_id;
 
-    // Clear previous selections
     citySelect.innerHTML = '<option value="">Seçiniz</option>';
     cinemaSelect.innerHTML = '<option value="">Seçiniz</option>';
     theaterSelect.innerHTML = '<option value="">Seçiniz</option>';
     showtimeSelect.innerHTML = '<option value="">Seçiniz</option>';
-    seatSelect.innerHTML = '<option value="">Seçiniz</option>';
+    seatSelect.innerHTML = '<option value="">Select Seat</option>';
+    const koltukArkaplan = document.getElementById("koltuk-arkaplan");
+    koltukArkaplan.style.display = 'none';
+    // Yeni film için mevcut koltuk seçimini ve dolu olanları temizle
+    document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove("selected"));
+    document.querySelectorAll('.seat.occupied').forEach(seat => seat.classList.remove("occupied"));
 
     try {
         const cinemasResponse = await fetch('http://localhost:3001/cinemas');

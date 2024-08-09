@@ -119,11 +119,9 @@
                 <select id="showtime-select">
                     <option value=""></option>
                 </select>
+                <label for="city-select">Select Seat:</label>
+                <button id="seat-select" class="select-button"> </button>
 
-                <label for="seat-select">Select Seat:</label>
-                <select id="seat-select">
-                    <option value=""></option>
-                </select>
                 <div id="koltuk-arkaplan"  style="display: none;">
                     <ul class="showcase">
                         <li>
@@ -131,11 +129,11 @@
                           <small>Boş</small>
                         </li>
                         <li>
-                          <div class="seat selected"></div>
+                          <div class="seat fix-selected"></div>
                           <small>Seçili</small>
                         </li>
                         <li>
-                          <div class="seat occupied"></div>
+                          <div class="seat fix-occupied"></div>
                           <small>Dolu</small>
                         </li>
                     </ul>
@@ -145,43 +143,42 @@
                             <!-- Row A -->
                             <div class="row">
                                 <small>A</small>
-                                <div class="seat"><span>1</span></div>
-                                <div class="seat"><span>2</span></div>
-                                <div class="seat"><span>3</span></div>
-                                <div class="seat"><span>4</span></div>
-                                <div class="seat"><span>5</span></div>
+                                <div class="seat" data-seat-loc="A1"><span>1</span></div>
+                                <div class="seat" data-seat-loc="A2"><span>2</span></div>
+                                <div class="seat" data-seat-loc="A3"><span>3</span></div>
+                                <div class="seat" data-seat-loc="A4"><span>4</span></div>
+                                <div class="seat" data-seat-loc="A5"><span>5</span></div>
                             </div>
                             <!-- Row B -->
                             <div class="row">
                                 <small>B</small>
-                                <div class="seat"><span>1</span></div>
-                                <div class="seat"><span>2</span></div>
-                                <div class="seat"><span>3</span></div>
-                                <div class="seat"><span>4</span></div>
-                                <div class="seat"><span>5</span></div>
+                                <div class="seat" data-seat-loc="B1"><span>1</span></div>
+                                <div class="seat" data-seat-loc="B2"><span>2</span></div>
+                                <div class="seat" data-seat-loc="B3"><span>3</span></div>
+                                <div class="seat" data-seat-loc="B4"><span>4</span></div>
+                                <div class="seat" data-seat-loc="B5"><span>5</span></div>
                             </div>
                             <!-- Row C -->
                             <div class="row">
                                 <small>C</small>
-                                <div class="seat"><span>1</span></div>
-                                <div class="seat"><span>2</span></div>
-                                <div class="seat"><span>3</span></div>
-                                <div class="seat"><span>4</span></div>
-                                <div class="seat"><span>5</span></div>
+                                <div class="seat" data-seat-loc="C1"><span>1</span></div>
+                                <div class="seat" data-seat-loc="C2"><span>2</span></div>
+                                <div class="seat" data-seat-loc="C3"><span>3</span></div>
+                                <div class="seat" data-seat-loc="C4"><span>4</span></div>
+                                <div class="seat" data-seat-loc="C5"><span>5</span></div>
                             </div>
                             <!-- Row D -->
                             <div class="row">
                                 <small>D</small>
-                                <div class="seat"><span>1</span></div>
-                                <div class="seat"><span>2</span></div>
-                                <div class="seat"><span>3</span></div>
-                                <div class="seat"><span>4</span></div>
-                                <div class="seat"><span>5</span></div>
+                                <div class="seat" data-seat-loc="D1"><span>1</span></div>
+                                <div class="seat" data-seat-loc="D2"><span>2</span></div>
+                                <div class="seat" data-seat-loc="D3"><span>3</span></div>
+                                <div class="seat" data-seat-loc="D4"><span>4</span></div>
+                                <div class="seat" data-seat-loc="D5"><span>5</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Existing code -->
                 <!-- Book Now Button -->
                 <button id="confirm-purchase-button">Book Now</button>
 
