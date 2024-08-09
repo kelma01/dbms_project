@@ -146,7 +146,7 @@ const loadUserTickets = async () => {
                 <p>Seat Location: ${seat[0].seat_loc}</p>
                 <p>Time: ${ticket.day}</p>
                 <p>Day: ${ticket.showtime}</p>
-                <button class="cancel-button" data-ticket-id="${ticket.ticket_id}">Bileti İptal Et</button>
+                <button class="cancel-button" data-ticket-id="${ticket.ticket_id}">Cancel the Ticket</button>
             `;
             ticketsContainer.appendChild(ticketElement);
         });
@@ -536,7 +536,7 @@ async function showMovieDetails(movie) {
     if (trailerUrl) {
         trailerContainer.innerHTML = `<iframe width="320" height="180" src="${trailerUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     } else {
-        trailerContainer.innerHTML = 'Fragman bulunamadı.';
+        trailerContainer.innerHTML = 'Trailer not found.';
     }
 
     // Set movie details
