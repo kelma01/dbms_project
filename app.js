@@ -490,7 +490,7 @@ async function handleShowtimeChange() {
 
 document.getElementById('showtime-select').addEventListener('change', handleShowtimeChange);
 
-const youtubeApiKey = 'AIzaSyDwcPcVdfNTKznTVoZpWzU7xWHqVLI1SyI';
+const youtubeApiKey = 'AIzaSyCTfaHC4lGTh2aSDqrc0kYJS-8LXxaw-LM';
 
 // YouTube API'den fragmanı al
 const getMovieTrailerFromYouTube = async (movieTitle) => {
