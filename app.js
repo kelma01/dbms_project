@@ -272,7 +272,7 @@ const handleUserLogin = (username) => {
     loginButton.style.display = 'none';
     registerButton.style.display = 'none';
     userInfo.style.display = 'inline';
-    userEmail.textContent = `Merhaba, ${username.charAt(0).toUpperCase()}${username.substring(1)}`; // Kullanıcı adını “Merhaba [isim]” şeklinde göster
+    userEmail.textContent = `Hello ${username.charAt(0).toUpperCase()}${username.substring(1)}!`; // Kullanıcı adını “Merhaba [isim]” şeklinde göster
     userEmail.style.display = 'inline';
 };
 
@@ -401,6 +401,9 @@ async function getSeatsForShowtime(theaterId) {
                         document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove("selected"));
                         seatElement.classList.add("selected");
                         selectedSeat = seat.seat_id ;
+                    }
+                    else{
+                        selectedSeat = null;
                     }
                 });
             }
