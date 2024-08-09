@@ -773,3 +773,16 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
 // Logout butonuna tıklama olayı
 logoutButton.addEventListener('click', handleLogout);
+const citySelect = document.getElementById('city-select');
+const cinemaSelect = document.getElementById('cinema-select');
+const theaterSelect = document.getElementById('theater-select');
+const showtimeSelect = document.getElementById('showtime-select');
+const koltukArkaplan = document.getElementById('koltuk-arkaplan');
+function hideKoltukArkaplan() {
+    koltukArkaplan.style.display = 'none';
+    selectedSeat = null;
+}
+citySelect.addEventListener('change', hideKoltukArkaplan);
+cinemaSelect.addEventListener('change', hideKoltukArkaplan);
+theaterSelect.addEventListener('change', hideKoltukArkaplan);
+showtimeSelect.addEventListener('change', hideKoltukArkaplan);
