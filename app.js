@@ -376,11 +376,11 @@ document.getElementById('showtime-select').addEventListener('change', function (
 //    }
 //}
 
+let selectedSeat = null;
 async function getSeatsForShowtime(theaterId) {
     try {
         const response = await fetch(`http://localhost:3001/seats/theater/${theaterId}`);
         const seats = await response.json();
-        const seatSelect = document.getElementById('seat-select');
 
         if (!Array.isArray(seats)) {
             throw new Error('Invalid data format');
@@ -398,31 +398,18 @@ async function getSeatsForShowtime(theaterId) {
 
                 seatElement.addEventListener('click', function() {
                     if (!seatElement.classList.contains("occupied")) {
-                        // Önceki seçili koltuğu kaldır
                         document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove("selected"));
-                        seatSelect.innerHTML = ''; // Seçim listesini temizle
-
-                        // Yeni seçili koltuğu işaretle
                         seatElement.classList.add("selected");
-
-                        // Yeni seçili koltuğu seatSelect'e ekle
-                        const option = document.createElement('option');
-                        option.value = seat.seat_id;
-                        option.textContent = seat.seat_loc;
-                        seatSelect.appendChild(option);
+                        selectedSeat = seat.seat_id ;
                     }
                 });
             }
         });
 
-        // Koltuk arka planını göster
-        // document.getElementById('koltuk-arkaplan').style.display = 'block';
-
     } catch (error) {
         console.error('Error fetching seats:', error);
     }
 }
-
 
 
 async function getCinemasForCity(city) {
@@ -618,13 +605,13 @@ confirmPurchaseButton.addEventListener('click', async () => {
     const cinemaSelect = document.getElementById('cinema-select');
     const theaterSelect = document.getElementById('theater-select');
     const showtimeSelect = document.getElementById('showtime-select');
-    const seatSelect = document.getElementById('seat-select');
+    //const seatSelect = document.getElementById('seat-select');
     const selectedCity = citySelect.value;
     const selectedCinema = cinemaSelect.value;
     const selectedTheater = theaterSelect.value;
     const selectedShowtime = showtimeSelect.value.split(' ')[0];
     const selectedShowday = showtimeSelect.value.split(' ')[1];
-    const selectedSeat = seatSelect.value;
+    //const selectedSeat = seatSelect.value;
     const userId = localStorage.getItem('userId');
     
     if (!selectedShowday || !selectedTheater || !selectedCity || !selectedCinema || !selectedShowtime || !selectedSeat) {
@@ -656,7 +643,7 @@ confirmPurchaseButton.addEventListener('click', async () => {
         });
         //burada ödeme kartına yönlendirmeli
     } catch (error) {
-        console.error('Error:', error);
+        alert('Error:', error);
     }
 
     const seatPayload = {
@@ -671,13 +658,12 @@ confirmPurchaseButton.addEventListener('click', async () => {
             body: JSON.stringify(seatPayload)
         });
     } catch (error) {
-        console.error('Error:', error);
+        alert('Error:', error);
     }
 });
 // Function to check if conditions are met
 function checkConditions() {
-    const seatSelected = document.getElementById('seat-select').value;
-    if (seatSelected !== "") {
+    if (selectedSeat !== null) {
         return true;
     }
     return false;
@@ -784,70 +770,3 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
 // Logout butonuna tıklama olayı
 logoutButton.addEventListener('click', handleLogout);
-
-const container = document.querySelector(".container");
-const seats = document.querySelectorAll(".row .seat:not(.occupied)");
-const count = document.getElementById("count");
-const total = document.getElementById("total");
-const movieSelect = document.getElementById("movie");
-
-populateUI();
-
-let ticketPrice = +movieSelect.value;
-
-setMovieData = (movieIndex, moviePrice) => {
-  localStorage.setItem("selectedMovieIndex", movieIndex);
-  localStorage.setItem("selectedMoviePrice", moviePrice);
-};
-
-updateSelectedCount = () => {
-  const selectedSeats = document.querySelectorAll(".row .seat.selected");
-
-  const seatsIndex = [...selectedSeats].map((seat) => {
-    return [...seats].indexOf(seat);
-  });
-
-  localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
-
-  const selectedSeatsCount = selectedSeats.length;
-
-  count.innerText = selectedSeatsCount;
-  total.innerText = selectedSeatsCount * ticketPrice;
-};
-
-function populateUI() {
-  const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
-
-  if (selectedSeats !== null && selectedSeats.length > 0) {
-    seats.forEach((seat, index) => {
-      if (selectedSeats.indexOf(index) > -1) {
-        seat.classList.add("selected");
-      }
-    });
-  }
-
-  const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
-
-  if (selectedMovieIndex !== null) {
-    movieSelect.selectedIndex = selectedMovieIndex;
-  }
-}
-
-movieSelect.addEventListener("change", (e) => {
-  ticketPrice = +e.target.value;
-  setMovieData(e.target.selectedIndex, e.target.value);
-  updateSelectedCount();
-});
-
-container.addEventListener("click", (e) => {
-  if (
-    e.target.classList.contains("seat") &&
-    !e.target.classList.contains("occupied")
-  ) {
-    e.target.classList.toggle("selected");
-
-    updateSelectedCount();
-  }
-});
-
-updateSelectedCount();
