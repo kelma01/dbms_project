@@ -144,8 +144,8 @@ const loadUserTickets = async () => {
                 <p>Cinema: ${cinema.name}</p>
                 <p>Theater Number: ${theater.theater_no}</p>
                 <p>Seat Location: ${seat[0].seat_loc}</p>
-                <p>Day: ${ticket.day}</p>
-                <p>Time: ${ticket.showtime}</p>
+                <p>Time: ${ticket.day}</p>
+                <p>Day: ${ticket.showtime}</p>
                 <button class="cancel-button" data-ticket-id="${ticket.ticket_id}">Bileti İptal Et</button>
             `;
             ticketsContainer.appendChild(ticketElement);
