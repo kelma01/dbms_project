@@ -392,7 +392,8 @@ async function getSeatsForShowtime(theaterId) {
             if (seatElement) {
                 if (!seat.is_empty) {
                     seatElement.classList.add("occupied");
-                } else {
+                } 
+                else {
                     seatElement.classList.remove("occupied");
                 }
 
@@ -601,9 +602,43 @@ async function showMovieDetails(movie) {
     }
 }
 
-confirmPurchaseButton.addEventListener('click', async () => {
-    confirmPurchaseButton.style.display = 'block';
+//confirmPurchaseButton.addEventListener('click', async () => {
+//    confirmPurchaseButton.style.display = 'block';
+//   
+//});
+// Function to check if conditions are met
+function checkConditions() {
+    if (selectedSeat !== null) {
+        return true;
+    }
+    return false;
+}
 
+// Show credit card modal when conditions are met
+purchaseButton.addEventListener('click', () => {
+    if (checkConditions()) {
+        creditCardModal.style.display = 'block';
+    } else {
+        alert('Please select a seat first!');
+    }
+});
+
+// Close the credit card modal when the 'close' button is clicked
+closeCreditCardModal.addEventListener('click', () => {
+    creditCardModal.style.display = 'none';
+});
+
+// Handle form submission
+creditCardForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const cardNumber = document.getElementById('card-number').value;
+    const expiryDate = document.getElementById('expiry-date').value;
+    const cvv = document.getElementById('cvv').value;
+    // Kart bilgilerinin doğruluğunu kontrol et
+    if (!cardNumber || !expiryDate || !cvv) {
+        alert('Lütfen tüm kredi kartı bilgilerini girin.');
+        return;
+    }
     const citySelect = document.getElementById('city-select');
     const cinemaSelect = document.getElementById('cinema-select');
     const theaterSelect = document.getElementById('theater-select');
@@ -663,38 +698,6 @@ confirmPurchaseButton.addEventListener('click', async () => {
     } catch (error) {
         alert('Error:', error);
     }
-});
-// Function to check if conditions are met
-function checkConditions() {
-    if (selectedSeat !== null) {
-        return true;
-    }
-    return false;
-}
-
-// Show credit card modal when conditions are met
-purchaseButton.addEventListener('click', () => {
-    if (checkConditions()) {
-        creditCardModal.style.display = 'block';
-    } else {
-        alert('Please select a seat first!');
-    }
-});
-
-// Close the credit card modal when the 'close' button is clicked
-closeCreditCardModal.addEventListener('click', () => {
-    creditCardModal.style.display = 'none';
-});
-
-// Handle form submission
-creditCardForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const cardNumber = document.getElementById('card-number').value;
-    const expiryDate = document.getElementById('expiry-date').value;
-    const cvv = document.getElementById('cvv').value;
-
-    // Add your payment processing logic here
-
     // Close the modal after submission
     creditCardModal.style.display = 'none';
     
