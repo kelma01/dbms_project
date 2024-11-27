@@ -11,7 +11,7 @@
 
 **EN**
 
-  Online Cinema Ticket Purchase Website
+  Online Cinema Ticket Purchasing Website
   
   package.json includes libraries to run the project. No need for extra installation. Here are the steps for running the project:
     
